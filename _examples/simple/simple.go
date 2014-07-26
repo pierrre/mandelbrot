@@ -7,15 +7,16 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/nfnt/resize"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 )
 
 func main() {
 	maxIter := 100
 
-	size := 8192
+	size := 16384
 	bounds := image.Rect(0, 0, size, size)
-	im := image.NewRGBA(bounds)
+	im := image.NewGray(bounds)
 
 	proj := mandelbrot_image.ProjectionFunc(func(x, y int) complex128 {
 		return complex(
@@ -26,8 +27,11 @@ func main() {
 
 	mandelbrot_image.Render(im, proj, maxIter)
 
+	resizeSize := uint(8192)
+	imResized := resize.Resize(resizeSize, resizeSize, im, resize.Lanczos3)
+
 	buf := new(bytes.Buffer)
-	err := png.Encode(buf, im)
+	err := png.Encode(buf, imResized)
 	if err != nil {
 		panic(err)
 	}
