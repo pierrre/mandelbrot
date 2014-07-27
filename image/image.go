@@ -9,11 +9,11 @@ import (
 	"github.com/pierrre/mandelbrot"
 )
 
-func Render(im draw.Image, proj Projection, maxIter int, colorizer Colorizer) {
-	render(im, im.Bounds(), proj, maxIter, colorizer)
+func Render(im draw.Image, trans Transformation, maxIter int, colorizer Colorizer) {
+	render(im, im.Bounds(), trans, maxIter, colorizer)
 }
 
-func RenderWorker(im draw.Image, proj Projection, maxIter int, colorizer Colorizer, workerCount int) {
+func RenderWorker(im draw.Image, trans Transformation, maxIter int, colorizer Colorizer, workerCount int) {
 	size := im.Bounds().Size()
 	width := size.X
 	height := size.Y
@@ -27,7 +27,7 @@ func RenderWorker(im draw.Image, proj Projection, maxIter int, colorizer Coloriz
 		wBounds := image.Rect(0, minY, width, maxY)
 
 		go func(wBounds image.Rectangle) {
-			render(im, wBounds, proj, maxIter, colorizer)
+			render(im, wBounds, trans, maxIter, colorizer)
 			wg.Done()
 		}(wBounds)
 	}
@@ -35,11 +35,11 @@ func RenderWorker(im draw.Image, proj Projection, maxIter int, colorizer Coloriz
 	wg.Wait()
 }
 
-func RenderWorkerAuto(im draw.Image, proj Projection, maxIter int, colorizer Colorizer) {
-	RenderWorker(im, proj, maxIter, colorizer, runtime.GOMAXPROCS(0)*4)
+func RenderWorkerAuto(im draw.Image, trans Transformation, maxIter int, colorizer Colorizer) {
+	RenderWorker(im, trans, maxIter, colorizer, runtime.GOMAXPROCS(0)*4)
 }
 
-func render(im draw.Image, bounds image.Rectangle, proj Projection, maxIter int, colorizer Colorizer) {
+func render(im draw.Image, bounds image.Rectangle, trans Transformation, maxIter int, colorizer Colorizer) {
 	minY := bounds.Min.Y
 	maxY := bounds.Max.Y
 	minX := bounds.Min.X
@@ -47,7 +47,7 @@ func render(im draw.Image, bounds image.Rectangle, proj Projection, maxIter int,
 	for y := minY; y < maxY; y++ {
 		for x := minX; x < maxX; x++ {
 			c := complex(float64(x), float64(y))
-			c = proj.Project(c)
+			c = trans.Transform(c)
 			res := mandelbrot.Mandelbrot(c, maxIter)
 			col := colorizer.Colorize(res)
 			im.Set(x, y, col)

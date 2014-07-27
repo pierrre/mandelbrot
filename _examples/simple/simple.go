@@ -17,14 +17,14 @@ func main() {
 	bounds := image.Rect(0, 0, size, size)
 	im := image.NewGray(bounds)
 
-	proj := mandelbrot_image.ProjectionFunc(func(c complex128) complex128 {
+	trans := mandelbrot_image.TransformationFunc(func(c complex128) complex128 {
 		return complex(
 			(real(c)/float64(bounds.Dx())*4)-2,
 			-((imag(c) / float64(bounds.Dy()) * 4) - 2),
 		)
 	})
 
-	mandelbrot_image.RenderWorkerAuto(im, proj, maxIter, mandelbrot_image.BWColorizer)
+	mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, mandelbrot_image.BWColorizer)
 
 	buf := new(bytes.Buffer)
 	err := png.Encode(buf, im)
