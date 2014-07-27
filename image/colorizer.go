@@ -2,6 +2,7 @@ package image
 
 import (
 	"image/color"
+	"math"
 
 	"github.com/pierrre/mandelbrot"
 )
@@ -16,10 +17,34 @@ func (f ColorizerFunc) Colorize(res mandelbrot.Result) color.Color {
 	return f(res)
 }
 
-var BWColorizer = ColorizerFunc(func(res mandelbrot.Result) color.Color {
-	if res.OK {
-		return color.White
-	} else {
-		return color.Black
+func BWColorizer() Colorizer {
+	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
+		if res.OK {
+			return color.White
+		} else {
+			return color.Black
+		}
+	})
+}
+
+func RainbowColorizer() Colorizer {
+	colorSin := func(x float64) uint8 {
+		x = math.Sin(x)
+		x = (x + 1) / 2
+		return uint8(x * 255)
 	}
-})
+	colorRainbow := func(x float64) color.Color {
+		return color.RGBA{
+			R: colorSin(x + (math.Pi * 0 / 3)),
+			G: colorSin(x + (math.Pi * 2 / 3)),
+			B: colorSin(x + (math.Pi * 4 / 3)),
+			A: 255,
+		}
+	}
+	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
+		if res.OK {
+			return color.Black
+		}
+		return colorRainbow(float64(res.Iter) / 4)
+	})
+}
