@@ -24,7 +24,7 @@ func main() {
 		)
 	})
 
-	mandelbrot_image.RenderWorkerAuto(im, proj, maxIter)
+	mandelbrot_image.RenderWorkerAuto(im, proj, maxIter, mandelbrot_image.BWColorizer)
 
 	buf := new(bytes.Buffer)
 	err := png.Encode(buf, im)

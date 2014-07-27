@@ -10,11 +10,11 @@ import (
 	"github.com/pierrre/mandelbrot"
 )
 
-func Render(im draw.Image, proj Projection, maxIter int) {
-	render(im, im.Bounds(), proj, maxIter)
+func Render(im draw.Image, proj Projection, maxIter int, colorizer Colorizer) {
+	render(im, im.Bounds(), proj, maxIter, colorizer)
 }
 
-func RenderWorker(im draw.Image, proj Projection, maxIter int, workerCount int) {
+func RenderWorker(im draw.Image, proj Projection, maxIter int, colorizer Colorizer, workerCount int) {
 	size := im.Bounds().Size()
 	width := size.X
 	height := size.Y
@@ -28,7 +28,7 @@ func RenderWorker(im draw.Image, proj Projection, maxIter int, workerCount int) 
 		wBounds := image.Rect(0, minY, width, maxY)
 
 		go func(wBounds image.Rectangle) {
-			render(im, wBounds, proj, maxIter)
+			render(im, wBounds, proj, maxIter, colorizer)
 			wg.Done()
 		}(wBounds)
 	}
@@ -36,11 +36,11 @@ func RenderWorker(im draw.Image, proj Projection, maxIter int, workerCount int) 
 	wg.Wait()
 }
 
-func RenderWorkerAuto(im draw.Image, proj Projection, maxIter int) {
-	RenderWorker(im, proj, maxIter, runtime.GOMAXPROCS(0)*4)
+func RenderWorkerAuto(im draw.Image, proj Projection, maxIter int, colorizer Colorizer) {
+	RenderWorker(im, proj, maxIter, colorizer, runtime.GOMAXPROCS(0)*4)
 }
 
-func render(im draw.Image, bounds image.Rectangle, proj Projection, maxIter int) {
+func render(im draw.Image, bounds image.Rectangle, proj Projection, maxIter int, colorizer Colorizer) {
 	minY := bounds.Min.Y
 	maxY := bounds.Max.Y
 	minX := bounds.Min.X
@@ -48,12 +48,8 @@ func render(im draw.Image, bounds image.Rectangle, proj Projection, maxIter int)
 	for y := minY; y < maxY; y++ {
 		for x := minX; x < maxX; x++ {
 			c := proj.Project(x, y)
-			var col color.Color
-			if ok, _, _ := mandelbrot.Mandelbrot(c, maxIter); ok {
-				col = color.White
-			} else {
-				col = color.Black
-			}
+			ok, iter, abs := mandelbrot.Mandelbrot(c, maxIter)
+			col := colorizer.Colorize(ok, iter, abs)
 			im.Set(x, y, col)
 		}
 	}
@@ -68,3 +64,21 @@ type ProjectionFunc func(x, y int) complex128
 func (pf ProjectionFunc) Project(x, y int) complex128 {
 	return pf(x, y)
 }
+
+type Colorizer interface {
+	Colorize(ok bool, iter int, abs float64) color.Color
+}
+
+type ColorizerFunc func(ok bool, iter int, abs float64) color.Color
+
+func (f ColorizerFunc) Colorize(ok bool, iter int, abs float64) color.Color {
+	return f(ok, iter, abs)
+}
+
+var BWColorizer = ColorizerFunc(func(ok bool, iter int, abs float64) color.Color {
+	if !ok {
+		return color.White
+	} else {
+		return color.Black
+	}
+})
