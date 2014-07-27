@@ -17,9 +17,9 @@ func (f ColorizerFunc) Colorize(res mandelbrot.Result) color.Color {
 	return f(res)
 }
 
-func BWColorizer() Colorizer {
+func BWColorizer(invert bool) Colorizer {
 	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
-		if res.OK {
+		if res.OK != invert {
 			return color.White
 		} else {
 			return color.Black

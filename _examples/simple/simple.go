@@ -18,7 +18,7 @@ func main() {
 	scale *= mandelbrot_image.ImageScale(im)
 	trans := mandelbrot_image.BaseTransformation(im, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
-	colorizer := mandelbrot_image.BWColorizer()
+	colorizer := mandelbrot_image.BWColorizer(false)
 	mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, colorizer)
 
 	mandelbrot_examples.Save(im, "simple.png")
