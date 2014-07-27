@@ -48,8 +48,8 @@ func render(im draw.Image, bounds image.Rectangle, proj Projection, maxIter int,
 	for y := minY; y < maxY; y++ {
 		for x := minX; x < maxX; x++ {
 			c := proj.Project(x, y)
-			ok, iter, abs := mandelbrot.Mandelbrot(c, maxIter)
-			col := colorizer.Colorize(ok, iter, abs)
+			res := mandelbrot.Mandelbrot(c, maxIter)
+			col := colorizer.Colorize(res)
 			im.Set(x, y, col)
 		}
 	}
@@ -66,17 +66,17 @@ func (pf ProjectionFunc) Project(x, y int) complex128 {
 }
 
 type Colorizer interface {
-	Colorize(ok bool, iter int, abs float64) color.Color
+	Colorize(mandelbrot.Result) color.Color
 }
 
-type ColorizerFunc func(ok bool, iter int, abs float64) color.Color
+type ColorizerFunc func(mandelbrot.Result) color.Color
 
-func (f ColorizerFunc) Colorize(ok bool, iter int, abs float64) color.Color {
-	return f(ok, iter, abs)
+func (f ColorizerFunc) Colorize(res mandelbrot.Result) color.Color {
+	return f(res)
 }
 
-var BWColorizer = ColorizerFunc(func(ok bool, iter int, abs float64) color.Color {
-	if !ok {
+var BWColorizer = ColorizerFunc(func(res mandelbrot.Result) color.Color {
+	if res.OK {
 		return color.White
 	} else {
 		return color.Black
