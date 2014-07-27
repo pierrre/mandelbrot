@@ -7,14 +7,13 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/nfnt/resize"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 )
 
 func main() {
-	maxIter := 100
+	maxIter := 20
 
-	size := 16384
+	size := 1024
 	bounds := image.Rect(0, 0, size, size)
 	im := image.NewGray(bounds)
 
@@ -25,13 +24,10 @@ func main() {
 		)
 	})
 
-	mandelbrot_image.Render(im, proj, maxIter)
-
-	resizeSize := uint(8192)
-	imResized := resize.Resize(resizeSize, resizeSize, im, resize.Lanczos3)
+	mandelbrot_image.RenderWorkerAuto(im, proj, maxIter)
 
 	buf := new(bytes.Buffer)
-	err := png.Encode(buf, imResized)
+	err := png.Encode(buf, im)
 	if err != nil {
 		panic(err)
 	}
