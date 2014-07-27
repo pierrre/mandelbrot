@@ -4,13 +4,14 @@ import (
 	"math/cmplx"
 )
 
-func Mandelbrot(c complex128, maxIter int) bool {
+func Mandelbrot(c complex128, maxIter int) (ok bool, iter int, abs float64) {
 	z := complex(0, 0)
-	for i := 0; i < maxIter; i++ {
+	for iter = 0; iter < maxIter; iter++ {
 		z = z*z + c
-		if cmplx.Abs(z) > 2 {
-			return false
+		abs = cmplx.Abs(z)
+		if abs > 2 {
+			return false, iter, 0
 		}
 	}
-	return true
+	return true, iter, abs
 }

@@ -49,7 +49,7 @@ func render(im draw.Image, bounds image.Rectangle, proj Projection, maxIter int)
 		for x := minX; x < maxX; x++ {
 			c := proj.Project(x, y)
 			var col color.Color
-			if mandelbrot.Mandelbrot(c, maxIter) {
+			if ok, _, _ := mandelbrot.Mandelbrot(c, maxIter); ok {
 				col = color.White
 			} else {
 				col = color.Black
