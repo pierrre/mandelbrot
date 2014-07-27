@@ -11,18 +11,16 @@ import (
 )
 
 func main() {
-	maxIter := 20
+	width := 1024
+	height := 1024
+	im := image.NewGray(image.Rect(0, 0, width, height))
 
-	size := 1024
-	bounds := image.Rect(0, 0, size, size)
-	im := image.NewGray(bounds)
+	scale := mandelbrot_image.ImageScale(im)
+	scale *= 2
+	translate := complex(-0.5, 0)
+	trans := mandelbrot_image.BaseTransformation(im, scale, translate)
 
-	trans := mandelbrot_image.TransformationFunc(func(c complex128) complex128 {
-		return complex(
-			(real(c)/float64(bounds.Dx())*4)-2,
-			-((imag(c) / float64(bounds.Dy()) * 4) - 2),
-		)
-	})
+	maxIter := mandelbrot_image.MaxIter(scale)
 
 	mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, mandelbrot_image.BWColorizer)
 
