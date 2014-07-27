@@ -2,7 +2,6 @@ package image
 
 import (
 	"image"
-	"image/color"
 	"image/draw"
 	"runtime"
 	"sync"
@@ -54,31 +53,3 @@ func render(im draw.Image, bounds image.Rectangle, proj Projection, maxIter int,
 		}
 	}
 }
-
-type Projection interface {
-	Project(x, y int) complex128
-}
-
-type ProjectionFunc func(x, y int) complex128
-
-func (pf ProjectionFunc) Project(x, y int) complex128 {
-	return pf(x, y)
-}
-
-type Colorizer interface {
-	Colorize(mandelbrot.Result) color.Color
-}
-
-type ColorizerFunc func(mandelbrot.Result) color.Color
-
-func (f ColorizerFunc) Colorize(res mandelbrot.Result) color.Color {
-	return f(res)
-}
-
-var BWColorizer = ColorizerFunc(func(res mandelbrot.Result) color.Color {
-	if res.OK {
-		return color.White
-	} else {
-		return color.Black
-	}
-})
