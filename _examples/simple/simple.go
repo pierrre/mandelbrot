@@ -1,12 +1,9 @@
 package main
 
 import (
-	"bytes"
 	"image"
-	"image/png"
-	"io/ioutil"
-	"os"
 
+	mandelbrot_examples "github.com/pierrre/mandelbrot/_examples"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 )
 
@@ -24,13 +21,5 @@ func main() {
 
 	mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, mandelbrot_image.BWColorizer)
 
-	buf := new(bytes.Buffer)
-	err := png.Encode(buf, im)
-	if err != nil {
-		panic(err)
-	}
-	err = ioutil.WriteFile("simple.png", buf.Bytes(), os.FileMode(0644))
-	if err != nil {
-		panic(err)
-	}
+	mandelbrot_examples.Save(im, "simple.png")
 }
