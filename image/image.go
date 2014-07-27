@@ -46,7 +46,8 @@ func render(im draw.Image, bounds image.Rectangle, proj Projection, maxIter int,
 	maxX := bounds.Max.X
 	for y := minY; y < maxY; y++ {
 		for x := minX; x < maxX; x++ {
-			c := proj.Project(x, y)
+			c := complex(float64(x), float64(y))
+			c = proj.Project(c)
 			res := mandelbrot.Mandelbrot(c, maxIter)
 			col := colorizer.Colorize(res)
 			im.Set(x, y, col)

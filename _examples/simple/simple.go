@@ -17,10 +17,10 @@ func main() {
 	bounds := image.Rect(0, 0, size, size)
 	im := image.NewGray(bounds)
 
-	proj := mandelbrot_image.ProjectionFunc(func(x, y int) complex128 {
+	proj := mandelbrot_image.ProjectionFunc(func(c complex128) complex128 {
 		return complex(
-			(float64(x)/float64(bounds.Dx())*4)-2,
-			-((float64(y) / float64(bounds.Dy()) * 4) - 2),
+			(real(c)/float64(bounds.Dx())*4)-2,
+			-((imag(c) / float64(bounds.Dy()) * 4) - 2),
 		)
 	})
 

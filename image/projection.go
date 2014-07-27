@@ -1,11 +1,11 @@
 package image
 
 type Projection interface {
-	Project(x, y int) complex128
+	Project(complex128) complex128
 }
 
-type ProjectionFunc func(x, y int) complex128
+type ProjectionFunc func(complex128) complex128
 
-func (pf ProjectionFunc) Project(x, y int) complex128 {
-	return pf(x, y)
+func (f ProjectionFunc) Project(c complex128) complex128 {
+	return f(c)
 }
