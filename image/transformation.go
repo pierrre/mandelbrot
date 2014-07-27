@@ -14,10 +14,6 @@ func (f TransformationFunc) Transform(c complex128) complex128 {
 	return f(c)
 }
 
-var IdentityTransformation = TransformationFunc(func(c complex128) complex128 {
-	return c
-})
-
 func BaseTransformation(im image.Image, scale float64, translate complex128) Transformation {
 	var trans Transformation
 	trans = ImageTransformation(im)
