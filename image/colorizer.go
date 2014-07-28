@@ -17,17 +17,32 @@ func (f ColorizerFunc) Colorize(res mandelbrot.Result) color.Color {
 	return f(res)
 }
 
-func BWColorizer(invert bool) Colorizer {
+func ColorColorizer(col color.Color) Colorizer {
 	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
-		if res.Bounded != invert {
-			return color.White
+		return col
+	})
+}
+
+func BoundColorizer(bounded, unbounded Colorizer) Colorizer {
+	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
+		if res.Bounded {
+			return bounded.Colorize(res)
 		} else {
-			return color.Black
+			return unbounded.Colorize(res)
 		}
 	})
 }
 
-func RainbowColorizer() Colorizer {
+func BWColorizer(invert bool) Colorizer {
+	bounded := ColorColorizer(color.White)
+	unbounded := ColorColorizer(color.Black)
+	if invert {
+		bounded, unbounded = unbounded, bounded
+	}
+	return BoundColorizer(bounded, unbounded)
+}
+
+func RainbowUnboundedColorizer() Colorizer {
 	colorSin := func(x float64) uint8 {
 		x = math.Sin(x)
 		x = (x + 1) / 2
@@ -42,9 +57,6 @@ func RainbowColorizer() Colorizer {
 		}
 	}
 	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
-		if res.Bounded {
-			return color.Black
-		}
 		return colorRainbow(float64(res.Iter) / 4)
 	})
 }

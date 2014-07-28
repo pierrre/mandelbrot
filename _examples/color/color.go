@@ -2,6 +2,7 @@ package main
 
 import (
 	"image"
+	"image/color"
 	"image/draw"
 
 	"github.com/nfnt/resize"
@@ -10,8 +11,8 @@ import (
 )
 
 func main() {
-	width := 8192
-	height := 8192
+	width := 4096
+	height := 4096
 	scale := 2.0
 	translate := complex(-0.5, 0)
 	smooth := uint(1)
@@ -24,7 +25,10 @@ func main() {
 	scale *= mandelbrot_image.ImageScale(im)
 	trans := mandelbrot_image.BaseTransformation(im, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
-	colorizer := mandelbrot_image.RainbowColorizer()
+	colorizer := mandelbrot_image.BoundColorizer(
+		mandelbrot_image.ColorColorizer(color.Black),
+		mandelbrot_image.RainbowUnboundedColorizer(),
+	)
 	mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, colorizer)
 
 	if smooth > 0 {
