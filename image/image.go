@@ -9,11 +9,11 @@ import (
 	"github.com/pierrre/mandelbrot"
 )
 
-func Render(im draw.Image, trans Transformation, maxIter int, colorizer Colorizer) {
+func Render(im draw.Image, trans Transformation, maxIter uint, colorizer Colorizer) {
 	render(im, im.Bounds(), trans, maxIter, colorizer)
 }
 
-func RenderWorker(im draw.Image, trans Transformation, maxIter int, colorizer Colorizer, workerCount int) {
+func RenderWorker(im draw.Image, trans Transformation, maxIter uint, colorizer Colorizer, workerCount int) {
 	size := im.Bounds().Size()
 	width := size.X
 	height := size.Y
@@ -35,11 +35,11 @@ func RenderWorker(im draw.Image, trans Transformation, maxIter int, colorizer Co
 	wg.Wait()
 }
 
-func RenderWorkerAuto(im draw.Image, trans Transformation, maxIter int, colorizer Colorizer) {
+func RenderWorkerAuto(im draw.Image, trans Transformation, maxIter uint, colorizer Colorizer) {
 	RenderWorker(im, trans, maxIter, colorizer, runtime.GOMAXPROCS(0)*4)
 }
 
-func render(im draw.Image, bounds image.Rectangle, trans Transformation, maxIter int, colorizer Colorizer) {
+func render(im draw.Image, bounds image.Rectangle, trans Transformation, maxIter uint, colorizer Colorizer) {
 	minY := bounds.Min.Y
 	maxY := bounds.Max.Y
 	minX := bounds.Min.X
