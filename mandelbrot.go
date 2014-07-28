@@ -13,21 +13,21 @@ func Mandelbrot(c complex128, maxIter uint) Result {
 		abs = cmplx.Abs(z)
 		if abs > 2 {
 			return Result{
-				OK:   false,
-				Iter: iter,
-				Abs:  0,
+				Bounded: false,
+				Iter:    iter,
+				Abs:     0,
 			}
 		}
 	}
 	return Result{
-		OK:   true,
-		Iter: iter,
-		Abs:  abs,
+		Bounded: true,
+		Iter:    iter,
+		Abs:     abs,
 	}
 }
 
 type Result struct {
-	OK   bool
-	Iter uint
-	Abs  float64
+	Bounded bool
+	Iter    uint
+	Abs     float64
 }

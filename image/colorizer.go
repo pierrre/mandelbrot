@@ -19,7 +19,7 @@ func (f ColorizerFunc) Colorize(res mandelbrot.Result) color.Color {
 
 func BWColorizer(invert bool) Colorizer {
 	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
-		if res.OK != invert {
+		if res.Bounded != invert {
 			return color.White
 		} else {
 			return color.Black
@@ -42,7 +42,7 @@ func RainbowColorizer() Colorizer {
 		}
 	}
 	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
-		if res.OK {
+		if res.Bounded {
 			return color.Black
 		}
 		return colorRainbow(float64(res.Iter) / 4)
