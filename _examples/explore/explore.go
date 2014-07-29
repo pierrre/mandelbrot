@@ -5,6 +5,7 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
+	"math"
 	"math/rand"
 	"time"
 
@@ -28,9 +29,10 @@ func main() {
 
 	for i := 0; i < 50; i++ {
 		var im draw.Image = image.NewRGBA(image.Rect(0, 0, width, height))
-		scale := baseScale * mandelbrot_image.ImageScale(im) * float64(int(1)<<uint(i))
+		scale := baseScale * mandelbrot_image.ImageScale(im) * math.Pow(2, float64(i))
 		trans := mandelbrot_image.BaseTransformation(im, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
+		fmt.Println(i, translate, scale)
 		mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, colorizer)
 
 		mandelbrot_examples.Save(im, fmt.Sprintf("explore_%04d.png", i))
