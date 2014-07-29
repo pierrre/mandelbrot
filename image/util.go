@@ -6,7 +6,7 @@ import (
 )
 
 func MaxIter(scale float64) uint {
-	return uint(math.Log(scale) * 4.5)
+	return uint(math.Log(scale) * 10)
 }
 
 func ImageScale(im image.Image) float64 {
