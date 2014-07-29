@@ -9,7 +9,6 @@ func MaxIter(scale float64) uint {
 	return uint(math.Log(scale) * 10)
 }
 
-func ImageScale(im image.Image) float64 {
-	size := im.Bounds().Size()
+func ImageScale(size image.Point) float64 {
 	return math.Min(float64(size.X), float64(size.Y)) / 4
 }

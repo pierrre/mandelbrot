@@ -5,7 +5,6 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
-	"math"
 	"math/rand"
 	"time"
 
@@ -13,10 +12,13 @@ import (
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 )
 
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
 func main() {
-	width := 1024
-	height := 1024
-	baseScale := 1.0
+	size := image.Pt(1024, 1024)
+	scale := 1.0
 	translate := complex(0, 0)
 
 	boundedColor := color.Black
@@ -25,11 +27,11 @@ func main() {
 		mandelbrot_image.RainbowUnboundedColorizer(),
 	)
 
-	rand.Seed(time.Now().UnixNano())
+	scale *= mandelbrot_image.ImageScale(size)
 
 	for i := 0; i < 50; i++ {
-		var im draw.Image = image.NewRGBA(image.Rect(0, 0, width, height))
-		scale := baseScale * mandelbrot_image.ImageScale(im) * math.Pow(2, float64(i))
+		var im draw.Image = image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
+		scale *= 2.0
 		trans := mandelbrot_image.BaseTransformation(im, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
 		fmt.Println(i, translate, scale)

@@ -11,18 +11,15 @@ import (
 )
 
 func main() {
-	width := 4096
-	height := 4096
+	size := image.Pt(4096, 4096)
 	scale := 2.0
 	translate := complex(-0.5, 0)
 	smooth := uint(1)
 
-	smoothMultiplicator := 1 << smooth
-	smoothWidth := width * smoothMultiplicator
-	smoothHeight := width * smoothMultiplicator
-	var im draw.Image = image.NewRGBA(image.Rect(0, 0, smoothWidth, smoothHeight))
+	smoothSize := size.Mul(1 << smooth)
+	var im draw.Image = image.NewRGBA(image.Rect(0, 0, smoothSize.X, smoothSize.Y))
 
-	scale *= mandelbrot_image.ImageScale(im)
+	scale *= mandelbrot_image.ImageScale(smoothSize)
 	trans := mandelbrot_image.BaseTransformation(im, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
 	colorizer := mandelbrot_image.BoundColorizer(
@@ -32,7 +29,7 @@ func main() {
 	mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, colorizer)
 
 	if smooth > 0 {
-		im = resize.Resize(uint(width), uint(height), im, resize.Lanczos3).(draw.Image)
+		im = resize.Resize(uint(size.X), uint(size.Y), im, resize.Lanczos3).(draw.Image)
 	}
 
 	mandelbrot_examples.Save(im, "color.png")

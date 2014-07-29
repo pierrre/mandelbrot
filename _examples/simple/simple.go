@@ -8,14 +8,13 @@ import (
 )
 
 func main() {
-	width := 1024
-	height := 1024
+	size := image.Pt(1024, 1024)
 	scale := 2.0
 	translate := complex(-0.5, 0)
 
-	im := image.NewGray(image.Rect(0, 0, width, height))
+	im := image.NewGray(image.Rect(0, 0, size.X, size.Y))
 
-	scale *= mandelbrot_image.ImageScale(im)
+	scale *= mandelbrot_image.ImageScale(size)
 	trans := mandelbrot_image.BaseTransformation(im, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
 	colorizer := mandelbrot_image.BWColorizer(false)
