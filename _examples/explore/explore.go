@@ -6,6 +6,7 @@ import (
 	"image/color"
 	"image/draw"
 	"math/rand"
+	"time"
 
 	mandelbrot_examples "github.com/pierrre/mandelbrot/_examples"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
@@ -18,11 +19,12 @@ func main() {
 	translate := complex(0, 0)
 
 	boundedColor := color.Black
-
 	colorizer := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(boundedColor),
 		mandelbrot_image.RainbowUnboundedColorizer(),
 	)
+
+	rand.Seed(time.Now().UnixNano())
 
 	for i := 0; i < 50; i++ {
 		var im draw.Image = image.NewRGBA(image.Rect(0, 0, width, height))
