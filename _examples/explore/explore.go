@@ -31,7 +31,6 @@ func main() {
 
 	for i := 0; i < 50; i++ {
 		var im draw.Image = image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
-		scale *= 2.0
 		trans := mandelbrot_image.BaseTransformation(im, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
 		fmt.Println(i, translate, scale)
@@ -41,6 +40,7 @@ func main() {
 
 		p := findBorderBoundedPoint(im, boundedColor)
 		translate = trans.Transform(complex(float64(p.X), float64(p.Y)))
+		scale *= 2.0
 	}
 }
 
