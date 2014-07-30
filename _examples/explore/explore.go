@@ -5,6 +5,7 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
+	"math"
 	"math/rand"
 	"time"
 
@@ -17,9 +18,10 @@ func init() {
 }
 
 func main() {
-	size := image.Pt(1024, 1024)
-	scale := 1.0
+	size := image.Pt(512, 512)
+	baseScale := 1.0
 	translate := complex(0, 0)
+	steps, stepScale := 50, 2.0 // 50,2.0 | 85,1.5 | 155,1.25
 
 	boundedColor := color.Black
 	colorizer := mandelbrot_image.BoundColorizer(
@@ -27,20 +29,18 @@ func main() {
 		mandelbrot_image.RainbowUnboundedColorizer(),
 	)
 
-	scale *= mandelbrot_image.ImageScale(size)
-
-	for i := 0; i < 50; i++ {
+	for step := 0; step < steps; step++ {
 		var im draw.Image = image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
+		scale := baseScale * mandelbrot_image.ImageScale(size) * math.Pow(stepScale, float64(step))
 		trans := mandelbrot_image.BaseTransformation(im, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
-		fmt.Println(i, translate, scale)
+		fmt.Println(step, translate, scale, maxIter)
 		mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, colorizer)
 
-		mandelbrot_examples.Save(im, fmt.Sprintf("explore_%04d.png", i))
+		mandelbrot_examples.Save(im, fmt.Sprintf("explore_%04d.png", step))
 
 		p := findBorderBoundedPoint(im, boundedColor)
 		translate = trans.Transform(complex(float64(p.X), float64(p.Y)))
-		scale *= 2.0
 	}
 }
 
