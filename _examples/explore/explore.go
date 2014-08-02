@@ -19,6 +19,7 @@ func init() {
 
 func main() {
 	size := image.Pt(512, 512)
+	rotate := 0.0
 	baseScale := 1.0
 	translate := complex(0, 0)
 	steps, stepScale := 50, 2.0 // 50,2.0 | 85,1.5 | 155,1.25
@@ -32,7 +33,7 @@ func main() {
 	for step := 0; step < steps; step++ {
 		var im draw.Image = image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
 		scale := baseScale * mandelbrot_image.ImageScale(size) * math.Pow(stepScale, float64(step))
-		trans := mandelbrot_image.BaseTransformation(im, scale, translate)
+		trans := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
 		fmt.Println(step, translate, scale, maxIter)
 		mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, colorizer)

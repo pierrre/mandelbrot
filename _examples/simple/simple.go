@@ -9,13 +9,14 @@ import (
 
 func main() {
 	size := image.Pt(1024, 1024)
+	rotate := 0.0
 	scale := 2.0
 	translate := complex(-0.5, 0)
 
 	im := image.NewGray(image.Rect(0, 0, size.X, size.Y))
 
 	scale *= mandelbrot_image.ImageScale(size)
-	trans := mandelbrot_image.BaseTransformation(im, scale, translate)
+	trans := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
 	colorizer := mandelbrot_image.BWColorizer(false)
 	mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, colorizer)

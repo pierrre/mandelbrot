@@ -12,6 +12,7 @@ import (
 
 func main() {
 	size := image.Pt(4096, 4096)
+	rotate := 1.55
 	scale := 2.0
 	translate := complex(-0.5, 0)
 	smooth := uint(1)
@@ -20,7 +21,7 @@ func main() {
 	var im draw.Image = image.NewRGBA(image.Rect(0, 0, smoothSize.X, smoothSize.Y))
 
 	scale *= mandelbrot_image.ImageScale(smoothSize)
-	trans := mandelbrot_image.BaseTransformation(im, scale, translate)
+	trans := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
 	colorizer := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(color.Black),
