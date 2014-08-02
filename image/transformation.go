@@ -15,11 +15,15 @@ func (f TransformationFunc) Transform(c complex128) complex128 {
 }
 
 func BaseTransformation(im image.Image, scale float64, translate complex128) Transformation {
-	var trans Transformation
-	trans = ImageTransformation(im)
-	trans = ScaleTransformation(scale, trans)
-	trans = TranslateTransformation(translate, trans)
-	return trans
+	imageTrans := ImageTransformation(im)
+	scaleTrans := ScaleTransformation(scale)
+	translateTrans := TranslateTransformation(translate)
+	return TransformationFunc(func(c complex128) complex128 {
+		c = imageTrans.Transform(c)
+		c = scaleTrans.Transform(c)
+		c = translateTrans.Transform(c)
+		return c
+	})
 }
 
 func ImageTransformation(im image.Image) Transformation {
@@ -31,15 +35,14 @@ func ImageTransformation(im image.Image) Transformation {
 	})
 }
 
-func ScaleTransformation(scale float64, trans Transformation) Transformation {
+func ScaleTransformation(scale float64) Transformation {
 	return TransformationFunc(func(c complex128) complex128 {
-		c = trans.Transform(c)
 		return complex(real(c)/scale, imag(c)/scale)
 	})
 }
 
-func TranslateTransformation(translate complex128, trans Transformation) Transformation {
+func TranslateTransformation(translate complex128) Transformation {
 	return TransformationFunc(func(c complex128) complex128 {
-		return trans.Transform(c) + translate
+		return c + translate
 	})
 }
