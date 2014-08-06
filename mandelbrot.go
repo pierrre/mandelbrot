@@ -1,17 +1,18 @@
 package mandelbrot
 
 import (
-	"math/cmplx"
+	"math"
 )
 
 func Mandelbrot(c complex128, maxIter int) Result {
 	z := complex(0, 0)
 	var iter int
-	var abs float64
+	var absSquare float64
 	for iter = 0; iter < maxIter; iter++ {
 		z = z*z + c
-		abs = cmplx.Abs(z)
-		if abs > 2 {
+		// cmplx.Abs(z) is 2x slower
+		absSquare = real(z)*real(z) + imag(z)*imag(z)
+		if absSquare > 4 { // math.Sqrt(4) == 2
 			return Result{
 				Bounded: false,
 				Iter:    iter,
@@ -22,7 +23,7 @@ func Mandelbrot(c complex128, maxIter int) Result {
 	return Result{
 		Bounded: true,
 		Iter:    iter,
-		Abs:     abs,
+		Abs:     math.Sqrt(absSquare),
 	}
 }
 
