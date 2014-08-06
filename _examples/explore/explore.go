@@ -11,6 +11,7 @@ import (
 
 	mandelbrot_examples "github.com/pierrre/mandelbrot/_examples"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
+	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
 )
 
 func init() {
@@ -27,7 +28,7 @@ func main() {
 	boundedColor := color.Black
 	colorizer := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(boundedColor),
-		mandelbrot_image.RainbowUnboundedColorizer(),
+		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),
 	)
 
 	for step := 0; step < steps; step++ {
