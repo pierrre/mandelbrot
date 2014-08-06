@@ -23,6 +23,12 @@ func ColorColorizer(col color.Color) Colorizer {
 	})
 }
 
+func ColorsUnboundedColorizer(cols []color.Color, shift int) Colorizer {
+	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
+		return cols[(int(res.Iter)+shift)%len(cols)]
+	})
+}
+
 func BoundColorizer(bounded, unbounded Colorizer) Colorizer {
 	return ColorizerFunc(func(res mandelbrot.Result) color.Color {
 		if res.Bounded {
