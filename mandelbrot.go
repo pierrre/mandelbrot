@@ -18,7 +18,7 @@ func Mandelbrot(c complex128, maxIter int) Result {
 	}
 	return Result{
 		Bounded: iter == maxIter,
-		Iter:    iter,
+		Iter:    iter + 1,
 		Abs:     math.Sqrt(absSquare),
 	}
 }
