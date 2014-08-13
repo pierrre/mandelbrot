@@ -13,15 +13,11 @@ func Mandelbrot(c complex128, maxIter int) Result {
 		// cmplx.Abs(z) is 2x slower
 		absSquare = real(z)*real(z) + imag(z)*imag(z)
 		if absSquare > 4 { // math.Sqrt(4) == 2
-			return Result{
-				Bounded: false,
-				Iter:    iter,
-				Abs:     0,
-			}
+			break
 		}
 	}
 	return Result{
-		Bounded: true,
+		Bounded: iter == maxIter,
 		Iter:    iter,
 		Abs:     math.Sqrt(absSquare),
 	}
