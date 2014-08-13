@@ -10,8 +10,8 @@ import (
 func main() {
 	size := image.Pt(1024, 1024)
 	rotate := 0.0
-	scale := 2.0
-	translate := complex(-0.5, 0)
+	scale := 1.6
+	translate := complex(-0.75, 0)
 
 	im := image.NewGray(image.Rect(0, 0, size.X, size.Y))
 

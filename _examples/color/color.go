@@ -14,8 +14,8 @@ import (
 func main() {
 	size := image.Pt(4096, 4096)
 	rotate := 0.0
-	scale := 2.0
-	translate := complex(-0.5, 0)
+	scale := 1.6
+	translate := complex(-0.75, 0)
 	smooth := uint(1)
 
 	smoothSize := size.Mul(1 << smooth)
