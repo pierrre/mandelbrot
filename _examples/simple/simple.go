@@ -19,7 +19,7 @@ func main() {
 	scale *= mandelbrot_image.ImageScale(size)
 	transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
-	mandel := mandelbrot.Mandelbrot(maxIter)
+	mandel := mandelbrot.NewMandelbroter(maxIter)
 	colzr := mandelbrot_image.BWColorizer(false)
 	renderer := mandelbrot_image.NewRenderWorkerAuto()
 	renderer.Render(im, transf, mandel, colzr)

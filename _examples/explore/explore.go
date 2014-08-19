@@ -39,7 +39,7 @@ func main() {
 		transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
 		fmt.Println(step, translate, scale, maxIter)
-		mandel := mandelbrot.Mandelbrot(maxIter)
+		mandel := mandelbrot.NewMandelbroter(maxIter)
 		renderer.Render(im, transf, mandel, colzr)
 
 		mandelbrot_examples.Save(im, fmt.Sprintf("explore_%04d.png", step))

@@ -25,7 +25,7 @@ func main() {
 	scale *= mandelbrot_image.ImageScale(smoothSize)
 	transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
-	mandel := mandelbrot.Mandelbrot(maxIter)
+	mandel := mandelbrot.NewMandelbroter(maxIter)
 	colzr := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(color.Black),
 		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),

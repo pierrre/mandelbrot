@@ -14,7 +14,7 @@ func (f MandelbroterFunc) Mandelbrot(c complex128) Result {
 	return f(c)
 }
 
-func Mandelbrot(maxIter int) Mandelbroter {
+func NewMandelbroter(maxIter int) Mandelbroter {
 	return MandelbroterFunc(func(c complex128) Result {
 		z := complex(0, 0)
 		var iter int
