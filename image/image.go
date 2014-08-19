@@ -49,7 +49,7 @@ func render(im draw.Image, bounds image.Rectangle, trans Transformation, maxIter
 			c := complex(float64(x), float64(y))
 			c = trans.Transform(c)
 			res := mandelbrot.Mandelbrot(c, maxIter)
-			col := colorizer.Colorize(res)
+			col := colorizer.Colorize(c, res)
 			im.Set(x, y, col)
 		}
 	}
