@@ -27,30 +27,34 @@ func NewRenderer() Renderer {
 
 func NewRendererWorker(workerCount int) Renderer {
 	return RendererFunc(func(im draw.Image, transf Transformation, mandel mandelbrot.Mandelbroter, colzr Colorizer) {
-		size := im.Bounds().Size()
-		width := size.X
-		height := size.Y
-
-		wg := new(sync.WaitGroup)
-		wg.Add(workerCount)
-
-		for w := 0; w < workerCount; w++ {
-			minY := int(float64(height) * (float64(w) / float64(workerCount)))
-			maxY := int(float64(height) * (float64(w+1) / float64(workerCount)))
-			wBounds := image.Rect(0, minY, width, maxY)
-
-			go func(wBounds image.Rectangle) {
-				render(im, wBounds, transf, mandel, colzr)
-				wg.Done()
-			}(wBounds)
-		}
-
-		wg.Wait()
+		renderWorker(im, transf, mandel, colzr, workerCount)
 	})
 }
 
 func NewRenderWorkerAuto() Renderer {
 	return NewRendererWorker(runtime.GOMAXPROCS(0) * 4)
+}
+
+func renderWorker(im draw.Image, transf Transformation, mandel mandelbrot.Mandelbroter, colzr Colorizer, workerCount int) {
+	size := im.Bounds().Size()
+	width := size.X
+	height := size.Y
+
+	wg := new(sync.WaitGroup)
+	wg.Add(workerCount)
+
+	for w := 0; w < workerCount; w++ {
+		minY := int(float64(height) * (float64(w) / float64(workerCount)))
+		maxY := int(float64(height) * (float64(w+1) / float64(workerCount)))
+		wBounds := image.Rect(0, minY, width, maxY)
+
+		go func(wBounds image.Rectangle) {
+			render(im, wBounds, transf, mandel, colzr)
+			wg.Done()
+		}(wBounds)
+	}
+
+	wg.Wait()
 }
 
 func render(im draw.Image, bounds image.Rectangle, transf Transformation, mandel mandelbrot.Mandelbroter, colzr Colorizer) {
