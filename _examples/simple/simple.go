@@ -17,11 +17,12 @@ func main() {
 	im := image.NewGray(image.Rect(0, 0, size.X, size.Y))
 
 	scale *= mandelbrot_image.ImageScale(size)
-	trans := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
+	transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
-	mandelbroter := mandelbrot.Mandelbrot(maxIter)
-	colorizer := mandelbrot_image.BWColorizer(false)
-	mandelbrot_image.RenderWorkerAuto(mandelbroter, im, trans, colorizer)
+	mandel := mandelbrot.Mandelbrot(maxIter)
+	colzr := mandelbrot_image.BWColorizer(false)
+	renderer := mandelbrot_image.NewRenderWorkerAuto()
+	renderer.Render(im, transf, mandel, colzr)
 
 	mandelbrot_examples.Save(im, "simple.png")
 }

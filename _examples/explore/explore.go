@@ -27,24 +27,25 @@ func main() {
 	steps, stepScale := 50, 2.0 // 50,2.0 | 85,1.5 | 155,1.25
 
 	boundedColor := color.Black
-	colorizer := mandelbrot_image.BoundColorizer(
+	colzr := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(boundedColor),
 		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),
 	)
+	renderer := mandelbrot_image.NewRenderWorkerAuto()
 
 	for step := 0; step < steps; step++ {
 		var im draw.Image = image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
 		scale := baseScale * mandelbrot_image.ImageScale(size) * math.Pow(stepScale, float64(step))
-		trans := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
+		transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
 		fmt.Println(step, translate, scale, maxIter)
-		mandelbroter := mandelbrot.Mandelbrot(maxIter)
-		mandelbrot_image.RenderWorkerAuto(mandelbroter, im, trans, colorizer)
+		mandel := mandelbrot.Mandelbrot(maxIter)
+		renderer.Render(im, transf, mandel, colzr)
 
 		mandelbrot_examples.Save(im, fmt.Sprintf("explore_%04d.png", step))
 
 		p := findBorderBoundedPoint(im, boundedColor)
-		translate = trans.Transform(complex(float64(p.X), float64(p.Y)))
+		translate = transf.Transform(complex(float64(p.X), float64(p.Y)))
 	}
 }
 

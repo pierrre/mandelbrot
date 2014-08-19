@@ -23,14 +23,15 @@ func main() {
 	var im draw.Image = image.NewRGBA(image.Rect(0, 0, smoothSize.X, smoothSize.Y))
 
 	scale *= mandelbrot_image.ImageScale(smoothSize)
-	trans := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
+	transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
-	mandelbroter := mandelbrot.Mandelbrot(maxIter)
-	colorizer := mandelbrot_image.BoundColorizer(
+	mandel := mandelbrot.Mandelbrot(maxIter)
+	colzr := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(color.Black),
 		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),
 	)
-	mandelbrot_image.RenderWorkerAuto(mandelbroter, im, trans, colorizer)
+	renderer := mandelbrot_image.NewRenderWorkerAuto()
+	renderer.Render(im, transf, mandel, colzr)
 
 	if smooth > 0 {
 		im = resize.Resize(uint(size.X), uint(size.Y), im, resize.Lanczos3).(draw.Image)
