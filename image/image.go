@@ -9,11 +9,11 @@ import (
 	"github.com/pierrre/mandelbrot"
 )
 
-func Render(im draw.Image, trans Transformation, maxIter int, colorizer Colorizer) {
-	render(im, im.Bounds(), trans, maxIter, colorizer)
+func Render(m mandelbrot.Mandelbroter, im draw.Image, trans Transformation, colorizer Colorizer) {
+	render(m, im, im.Bounds(), trans, colorizer)
 }
 
-func RenderWorker(im draw.Image, trans Transformation, maxIter int, colorizer Colorizer, workerCount int) {
+func RenderWorker(m mandelbrot.Mandelbroter, im draw.Image, trans Transformation, colorizer Colorizer, workerCount int) {
 	size := im.Bounds().Size()
 	width := size.X
 	height := size.Y
@@ -27,7 +27,7 @@ func RenderWorker(im draw.Image, trans Transformation, maxIter int, colorizer Co
 		wBounds := image.Rect(0, minY, width, maxY)
 
 		go func(wBounds image.Rectangle) {
-			render(im, wBounds, trans, maxIter, colorizer)
+			render(m, im, wBounds, trans, colorizer)
 			wg.Done()
 		}(wBounds)
 	}
@@ -35,11 +35,11 @@ func RenderWorker(im draw.Image, trans Transformation, maxIter int, colorizer Co
 	wg.Wait()
 }
 
-func RenderWorkerAuto(im draw.Image, trans Transformation, maxIter int, colorizer Colorizer) {
-	RenderWorker(im, trans, maxIter, colorizer, runtime.GOMAXPROCS(0)*4)
+func RenderWorkerAuto(m mandelbrot.Mandelbroter, im draw.Image, trans Transformation, colorizer Colorizer) {
+	RenderWorker(m, im, trans, colorizer, runtime.GOMAXPROCS(0)*4)
 }
 
-func render(im draw.Image, bounds image.Rectangle, trans Transformation, maxIter int, colorizer Colorizer) {
+func render(m mandelbrot.Mandelbroter, im draw.Image, bounds image.Rectangle, trans Transformation, colorizer Colorizer) {
 	minY := bounds.Min.Y
 	maxY := bounds.Max.Y
 	minX := bounds.Min.X
@@ -48,7 +48,7 @@ func render(im draw.Image, bounds image.Rectangle, trans Transformation, maxIter
 		for x := minX; x < maxX; x++ {
 			c := complex(float64(x), float64(y))
 			c = trans.Transform(c)
-			res := mandelbrot.Mandelbrot(c, maxIter)
+			res := m.Mandelbrot(c)
 			col := colorizer.Colorize(c, res)
 			im.Set(x, y, col)
 		}

@@ -6,6 +6,7 @@ import (
 	"image/draw"
 
 	"github.com/nfnt/resize"
+	"github.com/pierrre/mandelbrot"
 	mandelbrot_examples "github.com/pierrre/mandelbrot/_examples"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
@@ -24,11 +25,12 @@ func main() {
 	scale *= mandelbrot_image.ImageScale(smoothSize)
 	trans := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
+	mandelbroter := mandelbrot.Mandelbrot(maxIter)
 	colorizer := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(color.Black),
 		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),
 	)
-	mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, colorizer)
+	mandelbrot_image.RenderWorkerAuto(mandelbroter, im, trans, colorizer)
 
 	if smooth > 0 {
 		im = resize.Resize(uint(size.X), uint(size.Y), im, resize.Lanczos3).(draw.Image)

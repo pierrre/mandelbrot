@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/pierrre/mandelbrot"
 	mandelbrot_examples "github.com/pierrre/mandelbrot/_examples"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
@@ -37,7 +38,8 @@ func main() {
 		trans := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
 		fmt.Println(step, translate, scale, maxIter)
-		mandelbrot_image.RenderWorkerAuto(im, trans, maxIter, colorizer)
+		mandelbroter := mandelbrot.Mandelbrot(maxIter)
+		mandelbrot_image.RenderWorkerAuto(mandelbroter, im, trans, colorizer)
 
 		mandelbrot_examples.Save(im, fmt.Sprintf("explore_%04d.png", step))
 
