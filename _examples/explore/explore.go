@@ -5,8 +5,10 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
+	"log"
 	"math"
 	"math/rand"
+	"sync"
 	"time"
 
 	"github.com/pierrre/mandelbrot"
@@ -33,20 +35,31 @@ func main() {
 	)
 	renderer := mandelbrot_image.NewRenderWorkerAuto()
 
+	wg := new(sync.WaitGroup)
+
 	for step := 0; step < steps; step++ {
 		var im draw.Image = image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
 		scale := baseScale * mandelbrot_image.ImageScale(size) * math.Pow(stepScale, float64(step))
 		transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
-		fmt.Println(step, translate, scale, maxIter)
+
+		log.Printf("step=%d translate=%g scale=%v maxIter=%d", step, translate, scale, maxIter)
+
 		mandel := mandelbrot.NewMandelbroter(maxIter)
 		renderer.Render(im, transf, mandel, colzr)
 
-		mandelbrot_examples.Save(im, fmt.Sprintf("explore_%04d.png", step))
+		wg.Add(1)
+		file := fmt.Sprintf("explore_%04d.png", step)
+		go func() {
+			mandelbrot_examples.Save(im, file)
+			wg.Done()
+		}()
 
 		p := findBorderBoundedPoint(im, boundedColor)
 		translate = transf.Transform(complex(float64(p.X), float64(p.Y)))
 	}
+
+	wg.Wait()
 }
 
 func findBorderBoundedPoint(im image.Image, boundedColor color.Color) image.Point {
