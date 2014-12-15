@@ -21,7 +21,7 @@ func NewMandelbroter(maxIter int) Mandelbroter {
 }
 
 func mandelbrot(c complex128, maxIter int) Result {
-	z := complex(0, 0)
+	z := c
 	var iter int = 0
 	var absSquare float64
 	for {
