@@ -30,7 +30,7 @@ func main() {
 		mandelbrot_image.ColorColorizer(color.Black),
 		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),
 	)
-	renderer := mandelbrot_image.NewRenderWorkerAuto()
+	renderer := mandelbrot_image.NewRendererWorkerAuto()
 	renderer.Render(im, transf, mandel, colzr)
 
 	if smooth > 0 {

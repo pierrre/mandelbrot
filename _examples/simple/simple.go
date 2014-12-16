@@ -21,7 +21,7 @@ func main() {
 	maxIter := mandelbrot_image.MaxIter(scale)
 	mandel := mandelbrot.NewMandelbroter(maxIter)
 	colzr := mandelbrot_image.BWColorizer(false)
-	renderer := mandelbrot_image.NewRenderWorkerAuto()
+	renderer := mandelbrot_image.NewRendererWorkerAuto()
 	renderer.Render(im, transf, mandel, colzr)
 
 	mandelbrot_examples.Save(im, "simple.png")

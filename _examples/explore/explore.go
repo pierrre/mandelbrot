@@ -33,7 +33,7 @@ func main() {
 		mandelbrot_image.ColorColorizer(boundedColor),
 		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),
 	)
-	renderer := mandelbrot_image.NewRenderWorkerAuto()
+	renderer := mandelbrot_image.NewRendererWorkerAuto()
 
 	wg := new(sync.WaitGroup)
 

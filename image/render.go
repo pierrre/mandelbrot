@@ -31,7 +31,7 @@ func NewRendererWorker(workerCount int) Renderer {
 	})
 }
 
-func NewRenderWorkerAuto() Renderer {
+func NewRendererWorkerAuto() Renderer {
 	return NewRendererWorker(runtime.GOMAXPROCS(0) * 4)
 }
 
