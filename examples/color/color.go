@@ -7,7 +7,7 @@ import (
 
 	"github.com/nfnt/resize"
 	"github.com/pierrre/mandelbrot"
-	mandelbrot_examples "github.com/pierrre/mandelbrot/_examples"
+	mandelbrot_examples "github.com/pierrre/mandelbrot/examples"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
 )
