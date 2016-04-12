@@ -7,9 +7,7 @@ import (
 func BenchmarkMandelbrot(b *testing.B) {
 	m := NewMandelbroter(100)
 	c := complex(0.1, 0.1)
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			m.Mandelbrot(c)
-		}
-	})
+	for i := 0; i < b.N; i++ {
+		m.Mandelbrot(c)
+	}
 }
