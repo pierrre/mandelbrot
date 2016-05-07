@@ -4,23 +4,7 @@ import (
 	"math"
 )
 
-type Mandelbroter interface {
-	Mandelbrot(c complex128) Result
-}
-
-type MandelbroterFunc func(c complex128) Result
-
-func (f MandelbroterFunc) Mandelbrot(c complex128) Result {
-	return f(c)
-}
-
-func NewMandelbroter(maxIter int) Mandelbroter {
-	return MandelbroterFunc(func(c complex128) Result {
-		return mandelbrot(c, maxIter)
-	})
-}
-
-func mandelbrot(c complex128, maxIter int) Result {
+func Mandelbrot(c complex128, maxIter int) Result {
 	z := c
 	iter := 0
 	var absSquare float64

@@ -6,36 +6,28 @@ import (
 	"github.com/pierrre/mandelbrot"
 )
 
-type Colorizer interface {
-	Colorize(c complex128, res mandelbrot.Result) color.Color
-}
-
-type ColorizerFunc func(c complex128, res mandelbrot.Result) color.Color
-
-func (f ColorizerFunc) Colorize(c complex128, res mandelbrot.Result) color.Color {
-	return f(c, res)
-}
+type Colorizer func(complex128, mandelbrot.Result) color.Color
 
 func ColorColorizer(col color.Color) Colorizer {
-	return ColorizerFunc(func(c complex128, res mandelbrot.Result) color.Color {
+	return func(c complex128, res mandelbrot.Result) color.Color {
 		return col
-	})
+	}
 }
 
 func ColorsIterColorizer(cols []color.Color, shift int) Colorizer {
-	return ColorizerFunc(func(c complex128, res mandelbrot.Result) color.Color {
+	return func(c complex128, res mandelbrot.Result) color.Color {
 		return cols[(res.Iter+shift)%len(cols)]
-	})
+	}
 }
 
 func BoundColorizer(bounded, unbounded Colorizer) Colorizer {
-	return ColorizerFunc(func(c complex128, res mandelbrot.Result) color.Color {
+	return func(c complex128, res mandelbrot.Result) color.Color {
 		if res.Bounded {
-			return bounded.Colorize(c, res)
+			return bounded(c, res)
 		} else {
-			return unbounded.Colorize(c, res)
+			return unbounded(c, res)
 		}
-	})
+	}
 }
 
 func BWColorizer(invert bool) Colorizer {

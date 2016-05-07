@@ -3,10 +3,8 @@ package main
 import (
 	"image"
 	"image/color"
-	"image/draw"
 
-	"github.com/nfnt/resize"
-	"github.com/pierrre/mandelbrot"
+	"github.com/disintegration/gift"
 	mandelbrot_examples "github.com/pierrre/mandelbrot/examples"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
@@ -20,21 +18,22 @@ func main() {
 	smooth := uint(1)
 
 	smoothSize := size.Mul(1 << smooth)
-	var im draw.Image = image.NewRGBA(image.Rect(0, 0, smoothSize.X, smoothSize.Y))
+	im := image.NewRGBA(image.Rect(0, 0, smoothSize.X, smoothSize.Y))
 
 	scale *= mandelbrot_image.ImageScale(smoothSize)
-	transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
+	tsf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
-	mandel := mandelbrot.NewMandelbroter(maxIter)
-	colzr := mandelbrot_image.BoundColorizer(
+	clr := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(color.Black),
-		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),
+		mandelbrot_image_colorizer_rainbow.Colorizer(16, 0),
 	)
-	renderer := mandelbrot_image.NewRendererWorkerAuto()
-	renderer.Render(im, transf, mandel, colzr)
+	mandelbrot_image.RenderParallel(im, tsf, maxIter, clr)
 
 	if smooth > 0 {
-		im = resize.Resize(uint(size.X), uint(size.Y), im, resize.Lanczos3).(draw.Image)
+		g := gift.New(gift.Resize(size.X, size.Y, gift.LanczosResampling))
+		tmp := image.NewRGBA(g.Bounds(im.Bounds()))
+		g.Draw(tmp, im)
+		im = tmp
 	}
 
 	mandelbrot_examples.Save(im, "color.png")

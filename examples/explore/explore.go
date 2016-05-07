@@ -4,14 +4,11 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-	"image/draw"
 	"log"
 	"math"
 	"math/rand"
-	"sync"
 	"time"
 
-	"github.com/pierrre/mandelbrot"
 	mandelbrot_examples "github.com/pierrre/mandelbrot/examples"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
@@ -29,37 +26,28 @@ func main() {
 	steps, stepScale := 50, 2.0 // 50,2.0 | 85,1.5 | 155,1.25
 
 	boundedColor := color.Black
-	colzr := mandelbrot_image.BoundColorizer(
+	clr := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(boundedColor),
-		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),
+		mandelbrot_image_colorizer_rainbow.Colorizer(16, 0),
 	)
-	renderer := mandelbrot_image.NewRendererWorkerAuto()
 
-	wg := new(sync.WaitGroup)
+	im := image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
 
 	for step := 0; step < steps; step++ {
-		var im draw.Image = image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
 		scale := baseScale * mandelbrot_image.ImageScale(size) * math.Pow(stepScale, float64(step))
-		transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
+		tsf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
 
 		log.Printf("step=%d translate=%g scale=%v maxIter=%d", step, translate, scale, maxIter)
 
-		mandel := mandelbrot.NewMandelbroter(maxIter)
-		renderer.Render(im, transf, mandel, colzr)
+		mandelbrot_image.RenderParallel(im, tsf, maxIter, clr)
 
-		wg.Add(1)
 		file := fmt.Sprintf("explore_%04d.png", step)
-		go func() {
-			mandelbrot_examples.Save(im, file)
-			wg.Done()
-		}()
+		mandelbrot_examples.Save(im, file)
 
 		p := findBorderBoundedPoint(im, boundedColor)
-		translate = transf.Transform(complex(float64(p.X), float64(p.Y)))
+		translate = tsf(complex(float64(p.X), float64(p.Y)))
 	}
-
-	wg.Wait()
 }
 
 func findBorderBoundedPoint(im image.Image, boundedColor color.Color) image.Point {

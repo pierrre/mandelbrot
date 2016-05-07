@@ -10,12 +10,13 @@ import (
 	"os"
 	"time"
 
+	"github.com/disintegration/gift"
 	"github.com/pierrre/githubhook"
 	"github.com/pierrre/imageserver"
 	imageserver_http "github.com/pierrre/imageserver/http"
 	imageserver_image "github.com/pierrre/imageserver/image"
+	imageserver_image_gamma "github.com/pierrre/imageserver/image/gamma"
 	_ "github.com/pierrre/imageserver/image/png"
-	"github.com/pierrre/mandelbrot"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
 )
@@ -23,6 +24,8 @@ import (
 var (
 	flagHTTPAddr            = ":8080"
 	flagGitHubWebhookSecret string
+	flagQualityFactor       = uint(0)
+	flagMaxIter             = uint(1000)
 )
 
 func main() {
@@ -33,7 +36,12 @@ func main() {
 func parseFlags() {
 	flag.StringVar(&flagHTTPAddr, "http", flagHTTPAddr, "HTTP addr")
 	flag.StringVar(&flagGitHubWebhookSecret, "github-webhook-secret", flagGitHubWebhookSecret, "GitHub webhook secret")
+	flag.UintVar(&flagQualityFactor, "quality-factor", flagQualityFactor, "Quality factor")
+	flag.UintVar(&flagMaxIter, "max-iter", flagMaxIter, "Max iter")
 	flag.Parse()
+	if flagQualityFactor < 0 {
+		flagQualityFactor = 0
+	}
 }
 
 func startHTTPServer() {
@@ -106,7 +114,6 @@ const (
 	tileSize = 256
 	maxTileZ = 42
 	radius   = 2
-	maxIter  = 1000
 )
 
 func newImageHTTPHandler() http.Handler {
@@ -114,7 +121,7 @@ func newImageHTTPHandler() http.Handler {
 	hdr = &imageserver_http.Handler{
 		Parser: &mandelbrotHTTPParser{},
 		Server: &imageserver_image.Server{
-			Provider:      imageserver_image.ProviderFunc(imageProvider),
+			Provider:      newImageProvider(),
 			DefaultFormat: "png",
 		},
 		ETagFunc: imageserver_http.NewParamsHashETagFunc(sha256.New),
@@ -148,56 +155,73 @@ func (prs *mandelbrotHTTPParser) Resolve(param string) string {
 	return ""
 }
 
-func imageProvider(params imageserver.Params) (image.Image, error) {
-	tfn, err := getTransformation(params)
-	if err != nil {
-		return nil, err
-	}
-	mdb := mandelbrot.NewMandelbroter(maxIter)
-	czr := mandelbrot_image.BoundColorizer(
+func newImageProvider() imageserver_image.Provider {
+	tileRenderSize := tileSize << flagQualityFactor
+	clr := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(color.Black),
-		mandelbrot_image_colorizer_rainbow.RainbowIterColorizer(16, 0),
+		mandelbrot_image_colorizer_rainbow.Colorizer(16, 0),
 	)
-	im := image.NewNRGBA(image.Rect(0, 0, tileSize, tileSize))
-	renderer := mandelbrot_image.NewRenderer()
-	renderer.Render(im, tfn, mdb, czr)
-	return im, nil
+	var prv imageserver_image.Provider
+	prv = imageserver_image.ProviderFunc(func(params imageserver.Params) (image.Image, error) {
+		tsf, err := getTransformation(params, tileRenderSize)
+		if err != nil {
+			return nil, err
+		}
+		im := image.NewNRGBA(image.Rect(0, 0, tileRenderSize, tileRenderSize))
+		mandelbrot_image.Render(im, tsf, int(flagMaxIter), clr)
+		return im, nil
+	})
+	if tileRenderSize != tileSize {
+		prv = &imageserver_image.ProcessorProvider{
+			Provider: prv,
+			Processor: imageserver_image_gamma.NewCorrectionProcessor(
+				imageserver_image.ProcessorFunc(func(im image.Image, params imageserver.Params) (image.Image, error) {
+					g := gift.New(gift.Resize(tileSize, tileSize, gift.LanczosResampling))
+					dst := image.NewNRGBA64(g.Bounds(im.Bounds()))
+					g.Draw(dst, im)
+					return dst, nil
+				}),
+				true,
+			),
+		}
+	}
+	return prv
 }
 
-func getTransformation(params imageserver.Params) (mandelbrot_image.Transformation, error) {
-	tileX, tileY, tileZ, err := getTileXYZ(params)
+func getTransformation(params imageserver.Params, tileRenderSize int) (mandelbrot_image.Transformation, error) {
+	tileX, tileY, tileZ, err := getTileXYZParam(params)
 	if err != nil {
 		return nil, err
 	}
 	tileCount := 1 << uint(tileZ)
-	halfPix := tileCount * tileSize / 2
-	tilePixOff := complex(float64(tileX*tileSize-halfPix), float64(tileY*tileSize-halfPix))
-	scale := float64(halfPix / radius)
-	return mandelbrot_image.TransformationFunc(func(c complex128) complex128 {
+	halfPix := tileCount * tileRenderSize / 2
+	tilePixOff := complex(float64(tileX*tileRenderSize-halfPix), float64(tileY*tileRenderSize-halfPix))
+	invScale := float64(radius) / float64(halfPix)
+	return func(c complex128) complex128 {
 		c += tilePixOff
-		c = complex(real(c)/scale, -imag(c)/scale)
+		c = complex(real(c)*invScale, -imag(c)*invScale)
 		return c
-	}), nil
+	}, nil
 }
 
-func getTileXYZ(params imageserver.Params) (tileX, tileY, tileZ int, err error) {
-	tileZ, err = getTile(params, "z", 0, maxTileZ)
+func getTileXYZParam(params imageserver.Params) (tileX, tileY, tileZ int, err error) {
+	tileZ, err = getTileParam(params, "z", 0, maxTileZ)
 	if err != nil {
 		return
 	}
 	maxTileXY := (1 << uint(tileZ)) - 1
-	tileX, err = getTile(params, "x", 0, maxTileXY)
+	tileX, err = getTileParam(params, "x", 0, maxTileXY)
 	if err != nil {
 		return
 	}
-	tileY, err = getTile(params, "y", 0, maxTileXY)
+	tileY, err = getTileParam(params, "y", 0, maxTileXY)
 	if err != nil {
 		return
 	}
 	return
 }
 
-func getTile(params imageserver.Params, name string, min, max int) (int, error) {
+func getTileParam(params imageserver.Params, name string, min, max int) (int, error) {
 	tile, err := params.GetInt(name)
 	if err != nil {
 		return 0, err

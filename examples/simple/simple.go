@@ -3,7 +3,6 @@ package main
 import (
 	"image"
 
-	"github.com/pierrre/mandelbrot"
 	mandelbrot_examples "github.com/pierrre/mandelbrot/examples"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 )
@@ -17,12 +16,10 @@ func main() {
 	im := image.NewGray(image.Rect(0, 0, size.X, size.Y))
 
 	scale *= mandelbrot_image.ImageScale(size)
-	transf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
+	tsf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
-	mandel := mandelbrot.NewMandelbroter(maxIter)
-	colzr := mandelbrot_image.BWColorizer(false)
-	renderer := mandelbrot_image.NewRendererWorkerAuto()
-	renderer.Render(im, transf, mandel, colzr)
+	clr := mandelbrot_image.BWColorizer(false)
+	mandelbrot_image.RenderParallel(im, tsf, maxIter, clr)
 
 	mandelbrot_examples.Save(im, "simple.png")
 }
