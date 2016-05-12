@@ -13,6 +13,8 @@ import (
 	"github.com/disintegration/gift"
 	"github.com/pierrre/githubhook"
 	"github.com/pierrre/imageserver"
+	imageserver_cache "github.com/pierrre/imageserver/cache"
+	imageserver_cache_memory "github.com/pierrre/imageserver/cache/memory"
 	imageserver_http "github.com/pierrre/imageserver/http"
 	imageserver_image "github.com/pierrre/imageserver/image"
 	imageserver_image_gamma "github.com/pierrre/imageserver/image/gamma"
@@ -24,7 +26,8 @@ import (
 var (
 	flagHTTPAddr            = ":8080"
 	flagGitHubWebhookSecret string
-	flagQualityFactor       = uint(0)
+	flagCache               = int64(64 * (1 << 20))
+	flagQuality             = uint(0)
 	flagMaxIter             = uint(1000)
 )
 
@@ -36,12 +39,10 @@ func main() {
 func parseFlags() {
 	flag.StringVar(&flagHTTPAddr, "http", flagHTTPAddr, "HTTP addr")
 	flag.StringVar(&flagGitHubWebhookSecret, "github-webhook-secret", flagGitHubWebhookSecret, "GitHub webhook secret")
-	flag.UintVar(&flagQualityFactor, "quality-factor", flagQualityFactor, "Quality factor")
+	flag.Int64Var(&flagCache, "cache", flagCache, "Cache")
+	flag.UintVar(&flagQuality, "quality", flagQuality, "Quality")
 	flag.UintVar(&flagMaxIter, "max-iter", flagMaxIter, "Max iter")
 	flag.Parse()
-	if flagQualityFactor < 0 {
-		flagQualityFactor = 0
-	}
 }
 
 func startHTTPServer() {
@@ -119,11 +120,8 @@ const (
 func newImageHTTPHandler() http.Handler {
 	var hdr http.Handler
 	hdr = &imageserver_http.Handler{
-		Parser: &mandelbrotHTTPParser{},
-		Server: &imageserver_image.Server{
-			Provider:      newImageProvider(),
-			DefaultFormat: "png",
-		},
+		Parser:   &mandelbrotHTTPParser{},
+		Server:   newImageServer(),
 		ETagFunc: imageserver_http.NewParamsHashETagFunc(sha256.New),
 	}
 	hdr = &imageserver_http.ExpiresHandler{
@@ -155,8 +153,29 @@ func (prs *mandelbrotHTTPParser) Resolve(param string) string {
 	return ""
 }
 
+func newImageServer() imageserver.Server {
+	var srv imageserver.Server
+	srv = &imageserver_image.Server{
+		Provider:      newImageProvider(),
+		DefaultFormat: "png",
+	}
+	srv = newImageCacheServer(srv)
+	return srv
+}
+
+func newImageCacheServer(srv imageserver.Server) imageserver.Server {
+	if flagCache <= 0 {
+		return srv
+	}
+	return &imageserver_cache.Server{
+		Server:       srv,
+		Cache:        imageserver_cache_memory.New(flagCache),
+		KeyGenerator: imageserver_cache.NewParamsHashKeyGenerator(sha256.New),
+	}
+}
+
 func newImageProvider() imageserver_image.Provider {
-	tileRenderSize := tileSize << flagQualityFactor
+	tileRenderSize := tileSize << flagQuality
 	clr := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(color.Black),
 		mandelbrot_image_colorizer_rainbow.Colorizer(16, 0),
