@@ -195,7 +195,7 @@ func newImageProvider() imageserver_image.Provider {
 			Provider: prv,
 			Processor: imageserver_image_gamma.NewCorrectionProcessor(
 				imageserver_image.ProcessorFunc(func(im image.Image, params imageserver.Params) (image.Image, error) {
-					g := gift.New(gift.Resize(tileSize, tileSize, gift.LanczosResampling))
+					g := gift.New(gift.Resize(tileSize, tileSize, gift.CubicResampling))
 					dst := image.NewNRGBA64(g.Bounds(im.Bounds()))
 					g.Draw(dst, im)
 					return dst, nil
