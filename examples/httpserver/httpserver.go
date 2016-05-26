@@ -59,7 +59,7 @@ func startHTTPServer() {
 }
 
 func rootHTTPHandler(w http.ResponseWriter, req *http.Request) {
-	w.Write([]byte(
+	_, _ = w.Write([]byte(
 		`<!DOCTYPE html>
 <html>
 <head>
