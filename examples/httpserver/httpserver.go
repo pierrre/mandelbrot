@@ -75,7 +75,7 @@ func rootHTTPHandler(w http.ResponseWriter, req *http.Request) {
 			background-color: #000;
 		}
 		#map {
-			min-height: 100%;
+			height: 100%;
 		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/ol3/3.15.1/ol.css">
