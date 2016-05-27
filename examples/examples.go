@@ -1,4 +1,4 @@
-package _examples
+package examples
 
 import (
 	"bytes"
