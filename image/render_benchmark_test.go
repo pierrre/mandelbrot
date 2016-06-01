@@ -1,6 +1,7 @@
 package image
 
 import (
+	"context"
 	"image"
 	"testing"
 
@@ -8,6 +9,7 @@ import (
 )
 
 func BenchmarkRender(b *testing.B) {
+	ctx := context.Background()
 	size := image.Pt(256, 256)
 	im := image.NewGray(image.Rect(0, 0, size.X, size.Y))
 	rotate := 1.0
@@ -19,11 +21,12 @@ func BenchmarkRender(b *testing.B) {
 	clr := BWColorizer(false)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		Render(im, tsf, f, clr)
+		Render(ctx, im, tsf, f, clr)
 	}
 }
 
 func BenchmarkRenderParallel(b *testing.B) {
+	ctx := context.Background()
 	size := image.Pt(512, 512)
 	im := image.NewGray(image.Rect(0, 0, size.X, size.Y))
 	rotate := 1.0
@@ -35,6 +38,6 @@ func BenchmarkRenderParallel(b *testing.B) {
 	clr := BWColorizer(false)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		RenderParallel(im, tsf, f, clr)
+		RenderParallel(ctx, im, tsf, f, clr)
 	}
 }

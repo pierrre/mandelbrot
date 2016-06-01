@@ -1,6 +1,7 @@
 package image
 
 import (
+	"context"
 	"image"
 	"image/draw"
 
@@ -8,18 +9,18 @@ import (
 	"github.com/pierrre/mandelbrot"
 )
 
-func Render(im draw.Image, tsf Transformation, f mandelbrot.Func, clr Colorizer) {
-	render(imageutil.NewSetFunc(im), im.Bounds(), tsf, f, clr)
+func Render(ctx context.Context, im draw.Image, tsf Transformation, f mandelbrot.Func, clr Colorizer) {
+	render(ctx, imageutil.NewSetFunc(im), im.Bounds(), tsf, f, clr)
 }
 
-func RenderParallel(im draw.Image, tsf Transformation, f mandelbrot.Func, clr Colorizer) {
+func RenderParallel(ctx context.Context, im draw.Image, tsf Transformation, f mandelbrot.Func, clr Colorizer) {
 	set := imageutil.NewSetFunc(im)
-	imageutil.Parallel2D(im.Bounds(), func(bds image.Rectangle) {
-		render(set, bds, tsf, f, clr)
+	imageutil.Parallel2D(ctx, im.Bounds(), func(ctx context.Context, bds image.Rectangle) {
+		render(ctx, set, bds, tsf, f, clr)
 	})
 }
 
-func render(set imageutil.SetFunc, bds image.Rectangle, tsf Transformation, f mandelbrot.Func, clr Colorizer) {
+func render(ctx context.Context, set imageutil.SetFunc, bds image.Rectangle, tsf Transformation, f mandelbrot.Func, clr Colorizer) {
 	for y := bds.Min.Y; y < bds.Max.Y; y++ {
 		for x := bds.Min.X; x < bds.Max.X; x++ {
 			c := complex(float64(x), float64(y))

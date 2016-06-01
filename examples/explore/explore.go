@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"image"
 	"image/color"
@@ -20,6 +21,8 @@ func init() {
 }
 
 func main() {
+	ctx := context.Background()
+
 	size := image.Pt(512, 512)
 	rotate := 0.0
 	baseScale := 1.0
@@ -42,7 +45,7 @@ func main() {
 
 		log.Printf("step=%d translate=%g scale=%v maxIter=%d", step, translate, scale, maxIter)
 
-		mandelbrot_image.RenderParallel(im, tsf, f, clr)
+		mandelbrot_image.RenderParallel(ctx, im, tsf, f, clr)
 
 		file := fmt.Sprintf("explore_%04d.png", step)
 		mandelbrot_examples.Save(im, file)

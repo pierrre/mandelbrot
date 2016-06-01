@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"image"
 	"image/color"
 
@@ -12,6 +13,8 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	size := image.Pt(4096, 4096)
 	rotate := 0.0
 	scale := 1.6
@@ -29,7 +32,7 @@ func main() {
 		mandelbrot_image.ColorColorizer(color.Black),
 		mandelbrot_image_colorizer_rainbow.Colorizer(16, 0),
 	)
-	mandelbrot_image.RenderParallel(im, tsf, f, clr)
+	mandelbrot_image.RenderParallel(ctx, im, tsf, f, clr)
 
 	if smooth > 0 {
 		g := gift.New(gift.Resize(size.X, size.Y, gift.LanczosResampling))

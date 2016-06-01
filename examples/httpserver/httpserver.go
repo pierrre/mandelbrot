@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"crypto/sha256"
 	"flag"
 	"fmt"
@@ -182,21 +183,21 @@ func newImageProvider() imageserver_image.Provider {
 		mandelbrot_image_colorizer_rainbow.Colorizer(16, 0),
 	)
 	var prv imageserver_image.Provider
-	prv = imageserver_image.ProviderFunc(func(params imageserver.Params) (image.Image, error) {
+	prv = imageserver_image.ProviderFunc(func(ctx context.Context, params imageserver.Params) (image.Image, error) {
 		tsf, err := getTransformation(params, tileRenderSize)
 		if err != nil {
 			return nil, err
 		}
 		f := mandelbrot.New(int(flagMaxIter))
 		im := image.NewNRGBA(image.Rect(0, 0, tileRenderSize, tileRenderSize))
-		mandelbrot_image.Render(im, tsf, f, clr)
+		mandelbrot_image.Render(ctx, im, tsf, f, clr)
 		return im, nil
 	})
 	if tileRenderSize != tileSize {
 		prv = &imageserver_image.ProcessorProvider{
 			Provider: prv,
 			Processor: imageserver_image_gamma.NewCorrectionProcessor(
-				imageserver_image.ProcessorFunc(func(im image.Image, params imageserver.Params) (image.Image, error) {
+				imageserver_image.ProcessorFunc(func(ctx context.Context, im image.Image, params imageserver.Params) (image.Image, error) {
 					g := gift.New(gift.Resize(tileSize, tileSize, gift.CubicResampling))
 					dst := image.NewNRGBA64(g.Bounds(im.Bounds()))
 					g.Draw(dst, im)
