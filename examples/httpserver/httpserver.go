@@ -138,7 +138,7 @@ type mandelbrotHTTPParser struct{}
 
 func (prs *mandelbrotHTTPParser) Parse(req *http.Request, params imageserver.Params) error {
 	for _, k := range []string{"x", "y", "z"} {
-		err := imageserver_http.ParseQueryInt(k, req, params)
+		err := imageserver_http.ParseQueryInt64(k, req, params)
 		if err != nil {
 			return err
 		}
@@ -212,9 +212,12 @@ func getTransformation(params imageserver.Params, tileRenderSize int) (mandelbro
 	if err != nil {
 		return nil, err
 	}
-	tileCount := 1 << uint(tileZ)
-	halfPix := tileCount * tileRenderSize / 2
-	tilePixOff := complex(float64(tileX*tileRenderSize-halfPix), float64(tileY*tileRenderSize-halfPix))
+	tileCount := int64(1) << uint64(tileZ)
+	halfPix := tileCount * int64(tileRenderSize) / 2
+	tilePixOff := complex(
+		float64(tileX*int64(tileRenderSize)-halfPix),
+		float64(tileY*int64(tileRenderSize)-halfPix),
+	)
 	invScale := float64(radius) / float64(halfPix)
 	return func(c complex128) complex128 {
 		c += tilePixOff
@@ -223,12 +226,12 @@ func getTransformation(params imageserver.Params, tileRenderSize int) (mandelbro
 	}, nil
 }
 
-func getTileXYZParam(params imageserver.Params) (tileX, tileY, tileZ int, err error) {
+func getTileXYZParam(params imageserver.Params) (tileX, tileY, tileZ int64, err error) {
 	tileZ, err = getTileParam(params, "z", 0, maxTileZ)
 	if err != nil {
 		return
 	}
-	maxTileXY := (1 << uint(tileZ)) - 1
+	maxTileXY := (int64(1) << uint64(tileZ)) - 1
 	tileX, err = getTileParam(params, "x", 0, maxTileXY)
 	if err != nil {
 		return
@@ -240,8 +243,8 @@ func getTileXYZParam(params imageserver.Params) (tileX, tileY, tileZ int, err er
 	return
 }
 
-func getTileParam(params imageserver.Params, name string, min, max int) (int, error) {
-	tile, err := params.GetInt(name)
+func getTileParam(params imageserver.Params, name string, min, max int64) (int64, error) {
+	tile, err := params.GetInt64(name)
 	if err != nil {
 		return 0, err
 	}
