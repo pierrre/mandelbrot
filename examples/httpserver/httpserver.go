@@ -19,6 +19,7 @@ import (
 	imageserver_image "github.com/pierrre/imageserver/image"
 	imageserver_image_gamma "github.com/pierrre/imageserver/image/gamma"
 	_ "github.com/pierrre/imageserver/image/png"
+	"github.com/pierrre/mandelbrot"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
 )
@@ -186,8 +187,9 @@ func newImageProvider() imageserver_image.Provider {
 		if err != nil {
 			return nil, err
 		}
+		f := mandelbrot.New(int(flagMaxIter))
 		im := image.NewNRGBA(image.Rect(0, 0, tileRenderSize, tileRenderSize))
-		mandelbrot_image.Render(im, tsf, int(flagMaxIter), clr)
+		mandelbrot_image.Render(im, tsf, f, clr)
 		return im, nil
 	})
 	if tileRenderSize != tileSize {

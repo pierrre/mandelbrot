@@ -3,6 +3,8 @@ package image
 import (
 	"image"
 	"testing"
+
+	"github.com/pierrre/mandelbrot"
 )
 
 func BenchmarkRender(b *testing.B) {
@@ -13,10 +15,11 @@ func BenchmarkRender(b *testing.B) {
 	translate := complex(0, 0)
 	tsf := BaseTransformation(im, rotate, scale, translate)
 	maxIter := 500
+	f := mandelbrot.New(maxIter)
 	clr := BWColorizer(false)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		Render(im, tsf, maxIter, clr)
+		Render(im, tsf, f, clr)
 	}
 }
 
@@ -28,9 +31,10 @@ func BenchmarkRenderParallel(b *testing.B) {
 	translate := complex(0, 0)
 	tsf := BaseTransformation(im, rotate, scale, translate)
 	maxIter := 500
+	f := mandelbrot.New(maxIter)
 	clr := BWColorizer(false)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		RenderParallel(im, tsf, maxIter, clr)
+		RenderParallel(im, tsf, f, clr)
 	}
 }
