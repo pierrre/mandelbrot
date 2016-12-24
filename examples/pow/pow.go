@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
+	"log"
 
 	"github.com/disintegration/gift"
 	"github.com/pierrre/mandelbrot"
@@ -12,31 +14,42 @@ import (
 )
 
 func main() {
-	size := image.Pt(4096, 4096)
-	rotate := 0.0
-	scale := 1.6
-	translate := complex(-0.75, 0)
-	smooth := uint(2)
+	start := float64(2)
+	stop := float64(3)
+	steps := 1000
 
+	size := image.Pt(2048, 2048)
+	rotate := 0.0
+	scale := 1.0
+	translate := complex(0, 0)
+
+	smooth := uint(2)
 	smoothSize := size.Mul(1 << smooth)
 	im := image.NewRGBA(image.Rect(0, 0, smoothSize.X, smoothSize.Y))
-
 	scale *= mandelbrot_image.ImageScale(smoothSize)
 	tsf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
-	maxIter := mandelbrot_image.MaxIter(scale)
-	f := mandelbrot.New(maxIter)
+	maxIter := mandelbrot_image.MaxIter(scale) * 10
 	clr := mandelbrot_image.BoundColorizer(
 		mandelbrot_image.ColorColorizer(color.Black),
 		mandelbrot_image_colorizer_rainbow.Colorizer(16, 0),
 	)
-	mandelbrot_image.RenderParallel(im, tsf, f, clr)
 
-	if smooth > 0 {
-		g := gift.New(gift.Resize(size.X, size.Y, gift.LanczosResampling))
-		tmp := image.NewRGBA(g.Bounds(im.Bounds()))
-		g.Draw(tmp, im)
-		im = tmp
+	for step := 0; step < steps; step++ {
+		pow := start + ((stop - start) / float64(steps-1) * float64(step))
+		log.Printf("%d: %f", step, pow)
+
+		f := mandelbrot.NewPow(maxIter, pow)
+		mandelbrot_image.RenderParallel(im, tsf, f, clr)
+
+		tmp := im
+		if smooth > 0 {
+			g := gift.New(gift.Resize(size.X, size.Y, gift.LanczosResampling))
+			tmp = image.NewRGBA(g.Bounds(im.Bounds()))
+			g.Draw(tmp, im)
+		}
+
+		file := fmt.Sprintf("pow_%04d.png", step)
+		mandelbrot_examples.Save(tmp, file)
 	}
 
-	mandelbrot_examples.Save(im, "color.png")
 }
