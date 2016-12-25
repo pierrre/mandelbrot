@@ -60,7 +60,7 @@ func newPow2(maxIter int) Func {
 			}
 		}
 
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -82,7 +82,7 @@ func newPow2(maxIter int) Func {
 
 func newPow3(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -106,7 +106,7 @@ func newPow3(maxIter int) Func {
 
 func newPow4(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -130,7 +130,7 @@ func newPow4(maxIter int) Func {
 
 func newPow5(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -155,7 +155,7 @@ func newPow5(maxIter int) Func {
 
 func newPow6(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -180,7 +180,7 @@ func newPow6(maxIter int) Func {
 
 func newPow7(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -206,7 +206,7 @@ func newPow7(maxIter int) Func {
 
 func newPow8(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -231,7 +231,7 @@ func newPow8(maxIter int) Func {
 
 func newPow9(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -257,7 +257,7 @@ func newPow9(maxIter int) Func {
 
 func newPow10(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -283,7 +283,7 @@ func newPow10(maxIter int) Func {
 
 func newPow11(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -310,7 +310,7 @@ func newPow11(maxIter int) Func {
 
 func newPow12(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -336,7 +336,7 @@ func newPow12(maxIter int) Func {
 
 func newPow13(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -363,7 +363,7 @@ func newPow13(maxIter int) Func {
 
 func newPow14(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -390,7 +390,7 @@ func newPow14(maxIter int) Func {
 
 func newPow15(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -417,7 +417,7 @@ func newPow15(maxIter int) Func {
 
 func newPow16(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -443,7 +443,7 @@ func newPow16(maxIter int) Func {
 
 func newPow17(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -470,7 +470,7 @@ func newPow17(maxIter int) Func {
 
 func newPow18(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -497,7 +497,7 @@ func newPow18(maxIter int) Func {
 
 func newPow19(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -525,7 +525,7 @@ func newPow19(maxIter int) Func {
 
 func newPow20(maxIter int) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
@@ -552,7 +552,7 @@ func newPow20(maxIter int) Func {
 
 func newPow(maxIter int, pow float64) Func {
 	return func(c complex128) Result {
-		z := complex(0, 0)
+		z := c
 		for iter := 0; iter < maxIter; iter++ {
 			// optimization: calculate "abs square" instead of "abs"
 			absSquare := real(z)*real(z) + imag(z)*imag(z)
