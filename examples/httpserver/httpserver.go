@@ -79,8 +79,8 @@ func rootHTTPHandler(w http.ResponseWriter, req *http.Request) {
 			height: 100%;
 		}
 	</style>
-	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/ol3/3.17.1/ol.css">
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ol3/3.17.1/ol.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/ol3/3.20.1/ol.css">
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ol3/3.20.1/ol.js"></script>
 </head>
 <body>
 	<div id="map"></div>
