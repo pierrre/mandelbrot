@@ -1,3 +1,4 @@
+// Package rainbow provides a colorizer that uses a rainbow color scheme.
 package rainbow
 
 import (
@@ -7,6 +8,7 @@ import (
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 )
 
+// Colorizer returns a colorizer that uses a rainbow color scheme.
 func Colorizer(colorCount int, shift int) mandelbrot_image.Colorizer {
 	cols := make([]color.Color, colorCount)
 	for i := 0; i < colorCount; i++ {

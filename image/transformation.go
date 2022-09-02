@@ -5,13 +5,15 @@ import (
 	"math/cmplx"
 )
 
+// Transformation is a transformation function.
 type Transformation func(complex128) complex128
 
 func identityTransformation(c complex128) complex128 {
 	return c
 }
 
-func BaseTransformation(im image.Image, rotate float64, scale float64, translate complex128) Transformation {
+// BaseTransformation returns a transformation function for the given parameters.
+func BaseTransformation(im image.Image, rotate, scale float64, translate complex128) Transformation {
 	it := ImageTransformation(im)
 	rt := RotateTransformation(rotate)
 	st := ScaleTransformation(scale)
@@ -25,6 +27,9 @@ func BaseTransformation(im image.Image, rotate float64, scale float64, translate
 	}
 }
 
+// ImageTransformation returns a transformation function for the given image.
+//
+//nolint:revive // Naming issue.
 func ImageTransformation(im image.Image) Transformation {
 	center := complex(float64(im.Bounds().Dx())/2, float64(im.Bounds().Dy())/2)
 	return func(c complex128) complex128 {
@@ -34,6 +39,7 @@ func ImageTransformation(im image.Image) Transformation {
 	}
 }
 
+// RotateTransformation returns a transformation function for the given rotation.
 func RotateTransformation(rotate float64) Transformation {
 	if rotate == 0 {
 		return identityTransformation
@@ -44,6 +50,7 @@ func RotateTransformation(rotate float64) Transformation {
 	}
 }
 
+// ScaleTransformation returns a transformation function for the given scale.
 func ScaleTransformation(scale float64) Transformation {
 	if scale == 1 {
 		return identityTransformation
@@ -54,6 +61,7 @@ func ScaleTransformation(scale float64) Transformation {
 	}
 }
 
+// TranslateTransformation returns a transformation function for the given translation.
 func TranslateTransformation(translate complex128) Transformation {
 	if translate == 0 {
 		return identityTransformation

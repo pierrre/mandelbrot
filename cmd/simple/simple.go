@@ -1,10 +1,11 @@
+// Package simple provides an example of rendering a simple Mandelbrot image.
 package main
 
 import (
 	"image"
 
 	"github.com/pierrre/mandelbrot"
-	mandelbrot_examples "github.com/pierrre/mandelbrot/examples"
+	mandelbrot_cmd "github.com/pierrre/mandelbrot/cmd"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 )
 
@@ -16,12 +17,12 @@ func main() {
 
 	im := image.NewGray(image.Rect(0, 0, size.X, size.Y))
 
-	scale *= mandelbrot_image.ImageScale(size)
+	scale *= mandelbrot_image.Scale(size)
 	tsf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
 	f := mandelbrot.New(maxIter)
 	clr := mandelbrot_image.BWColorizer(false)
 	mandelbrot_image.RenderParallel(im, tsf, f, clr)
 
-	mandelbrot_examples.Save(im, "simple.png")
+	mandelbrot_cmd.Save(im, "simple.png")
 }

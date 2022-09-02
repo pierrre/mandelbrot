@@ -1,3 +1,4 @@
+// Package explore provides an example of exploring the Mandelbrot set.
 package main
 
 import (
@@ -10,7 +11,7 @@ import (
 	"time"
 
 	"github.com/pierrre/mandelbrot"
-	mandelbrot_examples "github.com/pierrre/mandelbrot/examples"
+	mandelbrot_cmd "github.com/pierrre/mandelbrot/cmd"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
 )
@@ -35,7 +36,7 @@ func main() {
 	im := image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
 
 	for step := 0; step < steps; step++ {
-		scale := baseScale * mandelbrot_image.ImageScale(size) * math.Pow(stepScale, float64(step))
+		scale := baseScale * mandelbrot_image.Scale(size) * math.Pow(stepScale, float64(step))
 		tsf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)
 		f := mandelbrot.New(maxIter)
@@ -45,7 +46,7 @@ func main() {
 		mandelbrot_image.RenderParallel(im, tsf, f, clr)
 
 		file := fmt.Sprintf("explore_%04d.png", step)
-		mandelbrot_examples.Save(im, file)
+		mandelbrot_cmd.Save(im, file)
 
 		p := findBorderBoundedPoint(im, boundedColor)
 		translate = tsf(complex(float64(p.X), float64(p.Y)))
@@ -64,8 +65,8 @@ func findBorderBoundedPoint(im image.Image, boundedColor color.Color) image.Poin
 func findBoundedPoint(im image.Image, boundedColor color.Color) image.Point {
 	size := im.Bounds().Size()
 	for {
-		x := rand.Intn(size.X)
-		y := rand.Intn(size.Y)
+		x := rand.Intn(size.X) //nolint:gosec // rand.Intn is safe.
+		y := rand.Intn(size.Y) //nolint:gosec // rand.Intn is safe.
 		if colorEqualRGBA(im.At(x, y), boundedColor) {
 			return image.Pt(x, y)
 		}

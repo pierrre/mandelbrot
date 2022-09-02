@@ -8,10 +8,12 @@ import (
 	"github.com/pierrre/mandelbrot"
 )
 
+// Render renders to an image.
 func Render(im draw.Image, tsf Transformation, f mandelbrot.Func, clr Colorizer) {
 	render(imageutil.NewSetFunc(im), im.Bounds(), tsf, f, clr)
 }
 
+// RenderParallel renders to an image in parallel.
 func RenderParallel(im draw.Image, tsf Transformation, f mandelbrot.Func, clr Colorizer) {
 	set := imageutil.NewSetFunc(im)
 	imageutil.Parallel2D(im.Bounds(), func(bds image.Rectangle) {

@@ -1,3 +1,4 @@
+// Package color provides an example of rendering a colored Mandelbrot image.
 package main
 
 import (
@@ -6,7 +7,7 @@ import (
 
 	"github.com/disintegration/gift"
 	"github.com/pierrre/mandelbrot"
-	mandelbrot_examples "github.com/pierrre/mandelbrot/examples"
+	mandelbrot_cmd "github.com/pierrre/mandelbrot/cmd"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
 )
@@ -21,7 +22,7 @@ func main() {
 	smoothSize := size.Mul(1 << smooth)
 	im := image.NewRGBA(image.Rect(0, 0, smoothSize.X, smoothSize.Y))
 
-	scale *= mandelbrot_image.ImageScale(smoothSize)
+	scale *= mandelbrot_image.Scale(smoothSize)
 	tsf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 	maxIter := mandelbrot_image.MaxIter(scale)
 	f := mandelbrot.New(maxIter)
@@ -38,5 +39,5 @@ func main() {
 		im = tmp
 	}
 
-	mandelbrot_examples.Save(im, "color.png")
+	mandelbrot_cmd.Save(im, "color.png")
 }

@@ -1,3 +1,4 @@
+// Package httpserver provides an HTTP server for the Mandelbrot set.
 package main
 
 import (
@@ -53,7 +54,7 @@ func startHTTPServer() {
 		http.Handle("/github_webhook", h)
 	}
 	http.Handle("/favicon.ico", http.NotFoundHandler())
-	err := http.ListenAndServe(flagHTTPAddr, nil)
+	err := http.ListenAndServe(flagHTTPAddr, nil) //nolint:gosec // TODO check.
 	if err != nil {
 		panic(err)
 	}
@@ -141,7 +142,7 @@ func (prs *mandelbrotHTTPParser) Parse(req *http.Request, params imageserver.Par
 	for _, k := range []string{"x", "y", "z"} {
 		err := imageserver_http.ParseQueryInt64(k, req, params)
 		if err != nil {
-			return err
+			return err //nolint:wrapcheck // TODO implement error handling.
 		}
 	}
 	return nil
@@ -248,7 +249,7 @@ func getTileXYZParam(params imageserver.Params) (tileX, tileY, tileZ int64, err 
 func getTileParam(params imageserver.Params, name string, min, max int64) (int64, error) {
 	tile, err := params.GetInt64(name)
 	if err != nil {
-		return 0, err
+		return 0, err //nolint:wrapcheck // TODO implement error handling.
 	}
 	if tile < min || tile > max {
 		return 0, &imageserver.ParamError{Param: name, Message: fmt.Sprintf("must be between %d and %d", min, max)}

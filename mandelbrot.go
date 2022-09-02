@@ -1,3 +1,4 @@
+// Package mandelbrot provides utilities to compute the Mandelbrot set.
 package mandelbrot
 
 import (
@@ -5,18 +6,22 @@ import (
 	"math/cmplx"
 )
 
+// Func represents a function that computes the Mandelbrot set for a given point.
 type Func func(complex128) Result
 
+// Result represents a result of the Mandelbrot set computation for a point.
 type Result struct {
 	Bounded bool
 	Iter    int
 	Abs     float64
 }
 
+// New returns a new Func.
 func New(maxIter int) Func {
 	return newPow2(maxIter)
 }
 
+// NewPow returns a new Func that uses the given power.
 func NewPow(maxIter int, pow float64) Func {
 	if f, ok := newPows[pow]; ok {
 		return f(maxIter)
