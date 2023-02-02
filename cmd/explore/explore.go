@@ -8,17 +8,12 @@ import (
 	"log"
 	"math"
 	"math/rand"
-	"time"
 
 	"github.com/pierrre/mandelbrot"
 	mandelbrot_cmd "github.com/pierrre/mandelbrot/cmd"
 	mandelbrot_image "github.com/pierrre/mandelbrot/image"
 	mandelbrot_image_colorizer_rainbow "github.com/pierrre/mandelbrot/image/colorizer/rainbow"
 )
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
 
 func main() {
 	size := image.Pt(512, 512)
