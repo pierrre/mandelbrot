@@ -5,8 +5,8 @@ github.com/lucasb-eyer/go-colorful v1.2.0/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i
 github.com/pierrre/compare v1.0.2 h1:k4IUsHgh+dbcAOIWCfxVa/7G6STjADH2qmhomv+1quc=
 github.com/pierrre/githubhook v1.0.0 h1:d/q1z0VsCjISXlwsoaeEjrA5QuIEMp/gaHYLcmUp8jI=
 github.com/pierrre/githubhook v1.0.0/go.mod h1:WKsXfGU8AOGsc705EHZC/qMzK74Hfbz4HPrna4Nevqo=
-github.com/pierrre/imageserver v0.0.0-20221004165344-a645d9cc1ef4 h1:YH4EOYRKj+AHFKmTI18NlBTSSQX1J0JCzKJPoZ9iTW8=
-github.com/pierrre/imageserver v0.0.0-20221004165344-a645d9cc1ef4/go.mod h1:Of1xi/YvJWZYaPHoS9CRf21YWfkxYlOJr60OSJ+Mz2k=
+github.com/pierrre/imageserver v0.0.0-20230306122636-293395ea8103 h1:9UnRg3nnTVc8/qpFZxMm70dYwUvEY7MSDj169yG5egY=
+github.com/pierrre/imageserver v0.0.0-20230306122636-293395ea8103/go.mod h1:DjgqD2sNU5JeN0dytMjFQP03Ps1kAEYyARDoQmk4+4s=
 github.com/pierrre/imageutil v1.0.0 h1:/DqwfUW34DdeZ/+btQRAD1NNIlLs+rAkskJJv5+jx2Q=
 github.com/pierrre/imageutil v1.0.0/go.mod h1:7NQKvBWOPV2rUECRLS1xs/w1l1Dn6r5dn4f3mrz5SQg=
 github.com/pierrre/lrucache v0.0.0-20150302143820-f5fef5733804 h1:eYvh3CRuu7x65kAdUyskmFvKM4n/e+xiQ2gjMxNdWXU=
