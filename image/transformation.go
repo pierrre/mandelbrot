@@ -28,8 +28,6 @@ func BaseTransformation(im image.Image, rotate, scale float64, translate complex
 }
 
 // ImageTransformation returns a transformation function for the given image.
-//
-
 func ImageTransformation(im image.Image) Transformation {
 	center := complex(float64(im.Bounds().Dx())/2, float64(im.Bounds().Dy())/2)
 	return func(c complex128) complex128 {
