@@ -1,6 +1,6 @@
 module github.com/pierrre/mandelbrot
 
-go 1.20
+go 1.21
 
 require (
 	github.com/disintegration/gift v1.2.1
@@ -12,5 +12,6 @@ require (
 
 require (
 	github.com/pierrre/compare v1.1.4 // indirect
+	github.com/pierrre/go-libs v0.2.8 // indirect
 	github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 // indirect
 )
