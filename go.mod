@@ -11,7 +11,7 @@ require (
 )
 
 require (
-	github.com/pierrre/compare v1.1.4 // indirect
-	github.com/pierrre/go-libs v0.2.8 // indirect
+	github.com/pierrre/compare v1.1.5 // indirect
+	github.com/pierrre/go-libs v0.2.10 // indirect
 	github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 // indirect
 )
