@@ -1,6 +1,6 @@
 module github.com/pierrre/mandelbrot
 
-go 1.21.0
+go 1.21
 
 require (
 	github.com/disintegration/gift v1.2.1
