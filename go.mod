@@ -6,7 +6,7 @@ require (
 	github.com/disintegration/gift v1.2.1
 	github.com/lucasb-eyer/go-colorful v1.2.0
 	github.com/pierrre/githubhook v1.0.0
-	github.com/pierrre/imageserver v0.0.0-20230607151911-5c799a1f4fc4
+	github.com/pierrre/imageserver v0.0.0-20231013080238-eaaa7dc7d331
 	github.com/pierrre/imageutil v1.0.0
 )
 
