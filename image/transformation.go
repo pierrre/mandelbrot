@@ -12,7 +12,7 @@ func identityTransformation(c complex128) complex128 {
 	return c
 }
 
-// BaseTransformation returns a transformation function for the given parameters.
+// BaseTransformation returns a [Transformation] function for the given parameters.
 func BaseTransformation(im image.Image, rotate, scale float64, translate complex128) Transformation {
 	it := ImageTransformation(im)
 	rt := RotateTransformation(rotate)
@@ -27,7 +27,7 @@ func BaseTransformation(im image.Image, rotate, scale float64, translate complex
 	}
 }
 
-// ImageTransformation returns a transformation function for the given image.
+// ImageTransformation returns a [Transformation] function for the given image.
 func ImageTransformation(im image.Image) Transformation {
 	center := complex(float64(im.Bounds().Dx())/2, float64(im.Bounds().Dy())/2)
 	return func(c complex128) complex128 {
@@ -37,7 +37,7 @@ func ImageTransformation(im image.Image) Transformation {
 	}
 }
 
-// RotateTransformation returns a transformation function for the given rotation.
+// RotateTransformation returns a [Transformation] function for the given rotation.
 func RotateTransformation(rotate float64) Transformation {
 	if rotate == 0 {
 		return identityTransformation
@@ -48,7 +48,7 @@ func RotateTransformation(rotate float64) Transformation {
 	}
 }
 
-// ScaleTransformation returns a transformation function for the given scale.
+// ScaleTransformation returns a [Transformation] function for the given scale.
 func ScaleTransformation(scale float64) Transformation {
 	if scale == 1 {
 		return identityTransformation
@@ -59,7 +59,7 @@ func ScaleTransformation(scale float64) Transformation {
 	}
 }
 
-// TranslateTransformation returns a transformation function for the given translation.
+// TranslateTransformation returns a [Transformation] function for the given translation.
 func TranslateTransformation(translate complex128) Transformation {
 	if translate == 0 {
 		return identityTransformation

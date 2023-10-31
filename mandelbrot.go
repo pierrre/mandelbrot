@@ -16,12 +16,12 @@ type Result struct {
 	Abs     float64
 }
 
-// New returns a new Func.
+// New returns a new [Func].
 func New(maxIter int) Func {
 	return newPow2(maxIter)
 }
 
-// NewPow returns a new Func that uses the given power.
+// NewPow returns a new [Func] that uses the given power.
 func NewPow(maxIter int, pow float64) Func {
 	if f, ok := newPows[pow]; ok {
 		return f(maxIter)
