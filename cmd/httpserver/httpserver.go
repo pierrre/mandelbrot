@@ -246,13 +246,13 @@ func getTileXYZParam(params imageserver.Params) (tileX, tileY, tileZ int64, err 
 	return
 }
 
-func getTileParam(params imageserver.Params, name string, min, max int64) (int64, error) {
+func getTileParam(params imageserver.Params, name string, minValue, maxValue int64) (int64, error) {
 	tile, err := params.GetInt64(name)
 	if err != nil {
 		return 0, err //nolint:wrapcheck // TODO implement error handling.
 	}
-	if tile < min || tile > max {
-		return 0, &imageserver.ParamError{Param: name, Message: fmt.Sprintf("must be between %d and %d", min, max)}
+	if tile < minValue || tile > maxValue {
+		return 0, &imageserver.ParamError{Param: name, Message: fmt.Sprintf("must be between %d and %d", minValue, maxValue)}
 	}
 	return tile, nil
 }
