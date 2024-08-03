@@ -30,7 +30,7 @@ func main() {
 
 	im := image.NewRGBA(image.Rect(0, 0, size.X, size.Y))
 
-	for step := 0; step < steps; step++ {
+	for step := range steps {
 		scale := baseScale * mandelbrot_image.Scale(size) * math.Pow(stepScale, float64(step))
 		tsf := mandelbrot_image.BaseTransformation(im, rotate, scale, translate)
 		maxIter := mandelbrot_image.MaxIter(scale)

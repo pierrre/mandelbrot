@@ -11,7 +11,7 @@ func BenchmarkNormal(b *testing.B) {
 	f := New(1000)
 	c := complex(-1, 0.15)
 	var res Result
-	for i := 0; i < b.N; i++ {
+	for range b.N {
 		res = f(c)
 	}
 	benchRes = res
@@ -46,7 +46,7 @@ func BenchmarkPow(b *testing.B) {
 			f := NewPow(1000, pow)
 			c := complex(0.1, 0.1)
 			var res Result
-			for i := 0; i < b.N; i++ {
+			for range b.N {
 				res = f(c)
 			}
 			benchRes = res
