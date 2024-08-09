@@ -10,4 +10,10 @@ require (
 	github.com/pierrre/imageutil v1.0.0
 )
 
-require github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 // indirect
+require (
+	github.com/pierrre/assert v0.3.8 // indirect
+	github.com/pierrre/compare v1.4.6 // indirect
+	github.com/pierrre/go-libs v0.5.6 // indirect
+	github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 // indirect
+	github.com/pierrre/pretty v0.1.0 // indirect
+)
