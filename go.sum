@@ -8,8 +8,8 @@ github.com/pierrre/compare v1.4.6 h1:JjGjO9r82dT3K/Zzaqgzdwo/rKFv04Jpb97AAU0wW1M
 github.com/pierrre/compare v1.4.6/go.mod h1:uwIp5+8pGOhaHKnzM2rI2A/hiAbTaE0tkiD/G2iHNWM=
 github.com/pierrre/githubhook v1.0.1 h1:l/AgIYhWHHRtpmKOy1XpcG9NTcnFDM+0pEH5YpICKk4=
 github.com/pierrre/githubhook v1.0.1/go.mod h1:t0gt7s2yHgdRy/Vpj3wbc1495Ou3MYyFuKCqqCtjqfQ=
-github.com/pierrre/go-libs v0.6.1 h1:WvupPnAViOJvN0gKZaNo4wQJOh5uqJE4J1gl4eqb6KY=
-github.com/pierrre/go-libs v0.6.1/go.mod h1:UhkUwjqxekTsXl8LAAYP6eJTfoV7nJwop/+QPVsOjEM=
+github.com/pierrre/go-libs v0.6.2 h1:BDwIqFWYuZzOaw9DQfTkBXarcvRAJXEul4PPm+Hydzg=
+github.com/pierrre/go-libs v0.6.2/go.mod h1:D6yG3H4iXx+pGjtv42C1J4kdV/s8+wjQG4tdP/miyHQ=
 github.com/pierrre/imageserver v0.0.0-20240628101311-4e684efe1082 h1:VSR0Bwxufyhw3Uq+wkVJ3abHlv2s8LfqbNa64EAcV8k=
 github.com/pierrre/imageserver v0.0.0-20240628101311-4e684efe1082/go.mod h1:uUnK/b4KwZWZm6y/MUwaO7WDYaavo1vfdIi4Y1WlKGU=
 github.com/pierrre/imageutil v1.0.0 h1:/DqwfUW34DdeZ/+btQRAD1NNIlLs+rAkskJJv5+jx2Q=
