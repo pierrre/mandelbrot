@@ -11,7 +11,7 @@ require (
 )
 
 require (
-	github.com/pierrre/compare v1.4.8 // indirect
+	github.com/pierrre/compare v1.4.9 // indirect
 	github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 // indirect
-	github.com/pierrre/pretty v0.3.5 // indirect
+	github.com/pierrre/pretty v0.3.6 // indirect
 )
