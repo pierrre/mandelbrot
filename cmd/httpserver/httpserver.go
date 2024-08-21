@@ -30,7 +30,7 @@ var (
 	flagGitHubWebhookSecret string
 	flagCache               = int64(64 * (1 << 20))
 	flagQuality             = uint(0)
-	flagMaxIter             = uint(1000)
+	flagMaxIter             = int(1000)
 )
 
 func main() {
@@ -43,7 +43,7 @@ func parseFlags() {
 	flag.StringVar(&flagGitHubWebhookSecret, "github-webhook-secret", flagGitHubWebhookSecret, "GitHub webhook secret")
 	flag.Int64Var(&flagCache, "cache", flagCache, "Cache")
 	flag.UintVar(&flagQuality, "quality", flagQuality, "Quality")
-	flag.UintVar(&flagMaxIter, "max-iter", flagMaxIter, "Max iter")
+	flag.IntVar(&flagMaxIter, "max-iter", flagMaxIter, "Max iter")
 	flag.Parse()
 }
 
@@ -188,7 +188,7 @@ func newImageProvider() imageserver_image.Provider {
 		if err != nil {
 			return nil, err
 		}
-		f := mandelbrot.New(int(flagMaxIter))
+		f := mandelbrot.New(flagMaxIter)
 		im := image.NewNRGBA(image.Rect(0, 0, tileRenderSize, tileRenderSize))
 		mandelbrot_image.Render(im, tsf, f, clr)
 		return im, nil
