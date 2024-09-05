@@ -11,7 +11,7 @@ require (
 )
 
 require (
-	github.com/pierrre/assert v0.5.5 // indirect
+	github.com/pierrre/assert v0.5.6 // indirect
 	github.com/pierrre/compare v1.4.10 // indirect
 	github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 // indirect
 )
