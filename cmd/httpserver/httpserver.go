@@ -215,7 +215,7 @@ func getTransformation(params imageserver.Params, tileRenderSize int) (mandelbro
 	if err != nil {
 		return nil, err
 	}
-	tileCount := int64(1) << uint64(tileZ)
+	tileCount := int64(1) << tileZ
 	halfPix := tileCount * int64(tileRenderSize) / 2
 	tilePixOff := complex(
 		float64(tileX*int64(tileRenderSize)-halfPix),
@@ -234,7 +234,7 @@ func getTileXYZParam(params imageserver.Params) (tileX, tileY, tileZ int64, err 
 	if err != nil {
 		return
 	}
-	maxTileXY := (int64(1) << uint64(tileZ)) - 1
+	maxTileXY := (int64(1) << tileZ) - 1
 	tileX, err = getTileParam(params, "x", 0, maxTileXY)
 	if err != nil {
 		return
