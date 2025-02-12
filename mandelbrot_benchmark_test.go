@@ -5,16 +5,12 @@ import (
 	"testing"
 )
 
-var benchRes Result
-
 func BenchmarkNormal(b *testing.B) {
 	f := New(1000)
 	c := complex(-1, 0.15)
-	var res Result
-	for range b.N {
-		res = f(c)
+	for b.Loop() {
+		f(c)
 	}
-	benchRes = res
 }
 
 func BenchmarkPow(b *testing.B) {
@@ -45,11 +41,9 @@ func BenchmarkPow(b *testing.B) {
 		b.Run(strconv.FormatFloat(pow, 'f', -1, 64), func(b *testing.B) {
 			f := NewPow(1000, pow)
 			c := complex(0.1, 0.1)
-			var res Result
-			for range b.N {
-				res = f(c)
+			for b.Loop() {
+				f(c)
 			}
-			benchRes = res
 		})
 	}
 }

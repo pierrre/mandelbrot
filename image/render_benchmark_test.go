@@ -17,8 +17,7 @@ func BenchmarkRender(b *testing.B) {
 	maxIter := 500
 	f := mandelbrot.New(maxIter)
 	clr := BWColorizer(false)
-	b.ResetTimer()
-	for range b.N {
+	for b.Loop() {
 		Render(im, tsf, f, clr)
 	}
 }
@@ -33,8 +32,7 @@ func BenchmarkRenderParallel(b *testing.B) {
 	maxIter := 500
 	f := mandelbrot.New(maxIter)
 	clr := BWColorizer(false)
-	b.ResetTimer()
-	for range b.N {
+	for b.Loop() {
 		RenderParallel(im, tsf, f, clr)
 	}
 }
