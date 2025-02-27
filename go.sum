@@ -16,5 +16,5 @@ github.com/pierrre/imageutil v1.0.0 h1:/DqwfUW34DdeZ/+btQRAD1NNIlLs+rAkskJJv5+jx
 github.com/pierrre/imageutil v1.0.0/go.mod h1:7NQKvBWOPV2rUECRLS1xs/w1l1Dn6r5dn4f3mrz5SQg=
 github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 h1:7W3Kq0zwNfwbHC6ORZnRiqC9T0iDXoRVVfq5gtemcmc=
 github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4/go.mod h1:UgTAbB0O63OjwFrw196ZaABpM7CBcHB9J1RwuavCx2Q=
-github.com/pierrre/pretty v0.9.4 h1:0uAuqou6uayuGRD/KTyqHk+bZb7ATDPvK9kHZ8ru7Q0=
-github.com/pierrre/pretty v0.9.4/go.mod h1:256CqIxdbhTM+nVJ6QnQumqUrl5x4eFO3aSrJK0ruOA=
+github.com/pierrre/pretty v0.10.0 h1:uZ1r9ArWTto4oT6811TIwtuG6riRnOym5HYPFBQbyMk=
+github.com/pierrre/pretty v0.10.0/go.mod h1:aNJmK9xHX3PofxLSlm5ZSlZB73WejdkY/wPihDceU5Q=
