@@ -1,7 +1,6 @@
 module github.com/pierrre/mandelbrot
 
 go 1.24.0
-
 require (
 	github.com/disintegration/gift v1.2.1
 	github.com/lucasb-eyer/go-colorful v1.2.0
@@ -11,7 +10,7 @@ require (
 )
 
 require (
-	github.com/pierrre/assert v0.7.1 // indirect
+	github.com/pierrre/assert v0.8.0 // indirect
 	github.com/pierrre/compare v1.4.13 // indirect
 	github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 // indirect
 )
