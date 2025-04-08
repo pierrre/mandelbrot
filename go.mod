@@ -1,6 +1,7 @@
 module github.com/pierrre/mandelbrot
 
 go 1.24.0
+
 require (
 	github.com/disintegration/gift v1.2.1
 	github.com/lucasb-eyer/go-colorful v1.2.0
