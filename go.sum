@@ -2,8 +2,8 @@ github.com/disintegration/gift v1.2.1 h1:Y005a1X4Z7Uc+0gLpSAsKhWi4qLtsdEcMIbbdvd
 github.com/disintegration/gift v1.2.1/go.mod h1:Jh2i7f7Q2BM7Ezno3PhfezbR1xpUg9dUg3/RlKGr4HI=
 github.com/lucasb-eyer/go-colorful v1.2.0 h1:1nnpGOrhyZZuNyfu1QjKiUICQ74+3FNCN69Aj6K7nkY=
 github.com/lucasb-eyer/go-colorful v1.2.0/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i7ruzyGqttikkLy0=
-github.com/pierrre/assert v0.10.1 h1:NfP8NAE/4jZXqhlf4asKWV66LQjqCkVQvY86DMJuyQU=
-github.com/pierrre/assert v0.10.1/go.mod h1:Dd9dtbHotD3gTjwC+v/tnbLUsNunNS0WXhSYB2jjcAk=
+github.com/pierrre/assert v0.11.1 h1:q+WrIHGg/xFhxTR+ZajBbt3fbdOou0uHxSsLAlsc1EQ=
+github.com/pierrre/assert v0.11.1/go.mod h1:BwvCD4ib43bCo93uUJmUlbh59YwLusWtIm4niRgZPQc=
 github.com/pierrre/compare v1.4.14 h1:snH4S/2nClsCCgYAvseyQYX6RHX8WvCdd23deiL1ovc=
 github.com/pierrre/compare v1.4.14/go.mod h1:5RkfHZojsCAFZR+mW9SHH55mH1tCWNWMP7xhWgxc6QE=
 github.com/pierrre/githubhook v1.0.2 h1:5nHFkCdh2oUTHIF+zen2nZ7PcpWbqH2RvP7B1A5O4Do=
@@ -16,5 +16,5 @@ github.com/pierrre/imageutil v1.0.0 h1:/DqwfUW34DdeZ/+btQRAD1NNIlLs+rAkskJJv5+jx
 github.com/pierrre/imageutil v1.0.0/go.mod h1:7NQKvBWOPV2rUECRLS1xs/w1l1Dn6r5dn4f3mrz5SQg=
 github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 h1:7W3Kq0zwNfwbHC6ORZnRiqC9T0iDXoRVVfq5gtemcmc=
 github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4/go.mod h1:UgTAbB0O63OjwFrw196ZaABpM7CBcHB9J1RwuavCx2Q=
-github.com/pierrre/pretty v0.18.9 h1:ECo2O8iofwLWzPIbeF1+XeSxQeAkU8cCHK2wE7q5owI=
-github.com/pierrre/pretty v0.18.9/go.mod h1:GAciJ6/lRiM2yToaz5SWoTLqZnqZAAWnrkzgUfWIcg4=
+github.com/pierrre/pretty v0.19.1 h1:WwYTnJQxXwPGu5ODzVwj9hMb/BMhcaewiyhWIU5vA/M=
+github.com/pierrre/pretty v0.19.1/go.mod h1:oEgHDVTIbES6SyRvblT3PjwCpNXGRmO6KX+dYC61DO0=
