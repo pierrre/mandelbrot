@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/disintegration/gift v1.2.1
-	github.com/lucasb-eyer/go-colorful v1.2.0
+	github.com/lucasb-eyer/go-colorful v1.3.0
 	github.com/pierrre/githubhook v1.0.2
 	github.com/pierrre/imageserver v0.0.0-20240628101311-4e684efe1082
 	github.com/pierrre/imageutil v1.0.0
