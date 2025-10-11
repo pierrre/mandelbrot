@@ -232,18 +232,18 @@ func getTransformation(params imageserver.Params, tileRenderSize int) (mandelbro
 func getTileXYZParam(params imageserver.Params) (tileX, tileY, tileZ int64, err error) {
 	tileZ, err = getTileParam(params, "z", 0, maxTileZ)
 	if err != nil {
-		return
+		return tileX, tileY, tileZ, err
 	}
 	maxTileXY := (int64(1) << tileZ) - 1
 	tileX, err = getTileParam(params, "x", 0, maxTileXY)
 	if err != nil {
-		return
+		return tileX, tileY, tileZ, err
 	}
 	tileY, err = getTileParam(params, "y", 0, maxTileXY)
 	if err != nil {
-		return
+		return tileX, tileY, tileZ, err
 	}
-	return
+	return tileX, tileY, tileZ, err
 }
 
 func getTileParam(params imageserver.Params, name string, minValue, maxValue int64) (int64, error) {
