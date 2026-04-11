@@ -1,4 +1,4 @@
-// Package cmd contains common utils for commands.
+// Package cmd contains common utilities for commands.
 package cmd
 
 import (
