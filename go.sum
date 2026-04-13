@@ -6,10 +6,10 @@ github.com/pierrre/assert v0.12.1 h1:Hg+r10601guGiOvXoWHx1Xp2TLj3w6FMb+PN7pR+iQc
 github.com/pierrre/assert v0.12.1/go.mod h1:9AEGGFuJp339PdEUkhfOq8zqYPdSurPWAua35EEpY2o=
 github.com/pierrre/compare v1.4.14 h1:snH4S/2nClsCCgYAvseyQYX6RHX8WvCdd23deiL1ovc=
 github.com/pierrre/compare v1.4.14/go.mod h1:5RkfHZojsCAFZR+mW9SHH55mH1tCWNWMP7xhWgxc6QE=
-github.com/pierrre/githubhook v1.0.2 h1:5nHFkCdh2oUTHIF+zen2nZ7PcpWbqH2RvP7B1A5O4Do=
-github.com/pierrre/githubhook v1.0.2/go.mod h1:XoIeHa0mauFkrXaBbIIoJncKMc5N4qXDputkYK/1uTQ=
-github.com/pierrre/go-libs v0.26.1 h1:plXQbZ1/Usv7RtS4K+u2jM8uerSD9q/yi+EWx1Q3mnM=
-github.com/pierrre/go-libs v0.26.1/go.mod h1:8lKFJ827dVJjJOg9cGyTMXSTEkcSr8qVMgTimJIxjY8=
+github.com/pierrre/githubhook v1.0.3 h1:8uZFOBzWZkMqPTzcfnSVAMKcSTef3/Ka5vg0l5jKb34=
+github.com/pierrre/githubhook v1.0.3/go.mod h1:Yf+7RuUIIs0k4mzTU8/4bpogbyRCg3qjDilPhJwTnB4=
+github.com/pierrre/go-libs v0.28.1 h1:PCz1fdKdSwCmwO5GMCN/L5qlvqxIBT54iKKzrbI1Nik=
+github.com/pierrre/go-libs v0.28.1/go.mod h1:KXbqq+niFCQ48LPSjX2lKG1IdCoTBrTpurkVVDH2W8U=
 github.com/pierrre/imageserver v0.0.0-20240628101311-4e684efe1082 h1:VSR0Bwxufyhw3Uq+wkVJ3abHlv2s8LfqbNa64EAcV8k=
 github.com/pierrre/imageserver v0.0.0-20240628101311-4e684efe1082/go.mod h1:uUnK/b4KwZWZm6y/MUwaO7WDYaavo1vfdIi4Y1WlKGU=
 github.com/pierrre/imageutil v1.0.0 h1:/DqwfUW34DdeZ/+btQRAD1NNIlLs+rAkskJJv5+jx2Q=
