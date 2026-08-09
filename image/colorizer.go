@@ -17,6 +17,7 @@ func ColorColorizer(col color.Color) Colorizer {
 }
 
 // ColorsIterColorizer returns a [Colorizer] that uses a list of colors.
+// It panics if cols is empty or if res.Iter+shift is negative.
 func ColorsIterColorizer(cols []color.Color, shift int) Colorizer {
 	return func(c complex128, res mandelbrot.Result) color.Color {
 		return cols[(res.Iter+shift)%len(cols)]
