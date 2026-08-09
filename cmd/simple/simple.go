@@ -3,6 +3,7 @@ package main
 
 import (
 	"image"
+	"log"
 
 	"github.com/pierrre/mandelbrot"
 	mandelbrot_cmd "github.com/pierrre/mandelbrot/cmd"
@@ -24,5 +25,8 @@ func main() {
 	clr := mandelbrot_image.BWColorizer(false)
 	mandelbrot_image.RenderParallel(im, tsf, f, clr)
 
-	mandelbrot_cmd.Save(im, "simple.png")
+	err := mandelbrot_cmd.Save(im, "simple.png")
+	if err != nil {
+		log.Fatal(err)
+	}
 }
