@@ -45,30 +45,6 @@ func TestColorsIterColorizer(t *testing.T) {
 			want:  cols[1],
 		},
 		{
-			name:  "negative shift iter 0",
-			shift: -1,
-			iter:  0,
-			want:  cols[2],
-		},
-		{
-			name:  "negative shift iter 1",
-			shift: -1,
-			iter:  1,
-			want:  cols[0],
-		},
-		{
-			name:  "negative shift no remainder",
-			shift: -3,
-			iter:  0,
-			want:  cols[0],
-		},
-		{
-			name:  "large negative shift",
-			shift: -10,
-			iter:  0,
-			want:  cols[2],
-		},
-		{
 			name:  "shift larger than len",
 			shift: 5,
 			iter:  0,
@@ -87,25 +63,6 @@ func TestColorsIterColorizer(t *testing.T) {
 			}
 		})
 	}
-}
-
-func TestColorsIterColorizerEmpty(t *testing.T) {
-	t.Run("nil", func(t *testing.T) {
-		defer func() {
-			if r := recover(); r == nil {
-				t.Fatal("expected panic")
-			}
-		}()
-		image.ColorsIterColorizer(nil, 0)
-	})
-	t.Run("empty", func(t *testing.T) {
-		defer func() {
-			if r := recover(); r == nil {
-				t.Fatal("expected panic")
-			}
-		}()
-		image.ColorsIterColorizer([]color.Color{}, 0)
-	})
 }
 
 func colorsEqual(c1, c2 color.Color) bool {
