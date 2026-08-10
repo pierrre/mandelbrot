@@ -3,10 +3,11 @@ package cmd
 
 import (
 	"bytes"
-	"fmt"
 	"image"
 	"image/png"
 	"os"
+
+	"github.com/pierrre/errors"
 )
 
 // Save saves an image to a file.
@@ -14,11 +15,11 @@ func Save(im image.Image, file string) error {
 	buf := new(bytes.Buffer)
 	err := png.Encode(buf, im)
 	if err != nil {
-		return fmt.Errorf("encode: %w", err)
+		return errors.Wrap(err, "encode")
 	}
 	err = os.WriteFile(file, buf.Bytes(), os.FileMode(0o644))
 	if err != nil {
-		return fmt.Errorf("write: %w", err)
+		return errors.Wrap(err, "write")
 	}
 	return nil
 }
