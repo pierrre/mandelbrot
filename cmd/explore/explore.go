@@ -41,7 +41,10 @@ func main() {
 		mandelbrot_image.RenderParallel(im, tsf, f, clr)
 
 		file := fmt.Sprintf("explore_%04d.png", step)
-		mandelbrot_cmd.Save(im, file)
+		err := mandelbrot_cmd.Save(im, file)
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		p := findBorderBoundedPoint(im, boundedColor)
 		translate = tsf(complex(float64(p.X), float64(p.Y)))

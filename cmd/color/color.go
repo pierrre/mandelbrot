@@ -4,6 +4,7 @@ package main
 import (
 	"image"
 	"image/color"
+	"log"
 
 	"github.com/disintegration/gift"
 	"github.com/pierrre/mandelbrot"
@@ -39,5 +40,8 @@ func main() {
 		im = tmp
 	}
 
-	mandelbrot_cmd.Save(im, "color.png")
+	err := mandelbrot_cmd.Save(im, "color.png")
+	if err != nil {
+		log.Fatal(err)
+	}
 }
