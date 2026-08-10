@@ -85,7 +85,7 @@ func newPow2(maxIter int) Func {
 	}
 }
 
-func newPow3(maxIter int) Func {
+func newPowFunc(maxIter int, pow func(complex128) complex128) Func {
 	return func(c complex128) Result {
 		z := c
 		for iter := range maxIter {
@@ -98,481 +98,181 @@ func newPow3(maxIter int) Func {
 					Abs:     math.Sqrt(absSquare),
 				}
 			}
-			z2 := z * z
-			z3 := z * z2
-			z = z3 + c
+			z = pow(z) + c
 		}
 		return Result{
 			Bounded: true,
 			Iter:    maxIter,
 		}
 	}
+}
+
+func newPow3(maxIter int) Func {
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		return z * z2
+	})
 }
 
 func newPow4(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z = z4 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		return z2 * z2
+	})
 }
 
 func newPow5(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z5 := z * z4
-			z = z5 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		return z * z4
+	})
 }
 
 func newPow6(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z6 := z2 * z4
-			z = z6 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		return z2 * z4
+	})
 }
 
 func newPow7(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z6 := z2 * z4
-			z7 := z * z6
-			z = z7 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z6 := z2 * z4
+		return z * z6
+	})
 }
 
 func newPow8(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z = z8 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		return z4 * z4
+	})
 }
 
 func newPow9(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z9 := z * z8
-			z = z9 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		return z * z8
+	})
 }
 
 func newPow10(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z10 := z2 * z8
-			z = z10 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		return z2 * z8
+	})
 }
 
 func newPow11(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z10 := z2 * z8
-			z11 := z * z10
-			z = z11 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		z10 := z2 * z8
+		return z * z10
+	})
 }
 
 func newPow12(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z12 := z4 * z8
-			z = z12 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		return z4 * z8
+	})
 }
 
 func newPow13(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z12 := z4 * z8
-			z13 := z * z12
-			z = z13 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		z12 := z4 * z8
+		return z * z12
+	})
 }
 
 func newPow14(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z12 := z4 * z8
-			z14 := z2 * z12
-			z = z14 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		z12 := z4 * z8
+		return z2 * z12
+	})
 }
 
 func newPow15(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z5 := z * z4
-			z10 := z5 * z5
-			z15 := z5 * z10
-			z = z15 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z5 := z * z4
+		z10 := z5 * z5
+		return z5 * z10
+	})
 }
 
 func newPow16(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z16 := z8 * z8
-			z = z16 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		return z8 * z8
+	})
 }
 
 func newPow17(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z16 := z8 * z8
-			z17 := z * z16
-			z = z17 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		z16 := z8 * z8
+		return z * z16
+	})
 }
 
 func newPow18(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z16 := z8 * z8
-			z18 := z2 * z16
-			z = z18 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		z16 := z8 * z8
+		return z2 * z16
+	})
 }
 
 func newPow19(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z16 := z8 * z8
-			z18 := z2 * z16
-			z19 := z * z18
-			z = z19 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		z16 := z8 * z8
+		z18 := z2 * z16
+		return z * z18
+	})
 }
 
 func newPow20(maxIter int) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z2 := z * z
-			z4 := z2 * z2
-			z8 := z4 * z4
-			z16 := z8 * z8
-			z20 := z4 * z16
-			z = z20 + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		z2 := z * z
+		z4 := z2 * z2
+		z8 := z4 * z4
+		z16 := z8 * z8
+		return z4 * z16
+	})
 }
 
 func newPow(maxIter int, pow float64) Func {
-	return func(c complex128) Result {
-		z := c
-		for iter := range maxIter {
-			// optimization: calculate "abs square" instead of "abs"
-			absSquare := real(z)*real(z) + imag(z)*imag(z)
-			if absSquare > 4 {
-				return Result{
-					Bounded: false,
-					Iter:    iter,
-					Abs:     math.Sqrt(absSquare),
-				}
-			}
-			z = cmplx.Pow(z, complex(pow, 0)) + c
-		}
-		return Result{
-			Bounded: true,
-			Iter:    maxIter,
-		}
-	}
+	return newPowFunc(maxIter, func(z complex128) complex128 {
+		return cmplx.Pow(z, complex(pow, 0))
+	})
 }
