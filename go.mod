@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/disintegration/gift v1.2.1
 	github.com/lucasb-eyer/go-colorful v1.4.1
-	github.com/pierrre/assert v0.14.1
+	github.com/pierrre/assert v0.15.0
 	github.com/pierrre/errors v0.16.0
 	github.com/pierrre/githubhook v1.0.3
 	github.com/pierrre/imageserver v0.0.0-20260401103827-97c35bd6b0bd
@@ -13,7 +13,7 @@ require (
 )
 
 require (
-	github.com/pierrre/compare v1.4.15 // indirect
+	github.com/pierrre/compare v1.5.0 // indirect
 	github.com/pierrre/go-libs v0.34.2 // indirect
 	github.com/pierrre/lrucache v0.0.0-20230607151708-a8a5d90ecbc4 // indirect
 	github.com/pierrre/pretty v0.25.1 // indirect
