@@ -54,7 +54,7 @@ func startHTTPServer() {
 		http.Handle("/github_webhook", h)
 	}
 	http.Handle("/favicon.ico", http.NotFoundHandler())
-	err := http.ListenAndServe(flagHTTPAddr, nil) //nolint:gosec // TODO check.
+	err := http.ListenAndServe(flagHTTPAddr, nil)
 	if err != nil {
 		panic(err)
 	}

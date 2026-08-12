@@ -63,8 +63,8 @@ func findBorderBoundedPoint(im image.Image, boundedColor color.Color) image.Poin
 func findBoundedPoint(im image.Image, boundedColor color.Color) image.Point {
 	size := im.Bounds().Size()
 	for {
-		x := rand.Intn(size.X) //nolint:gosec // rand.Intn is safe.
-		y := rand.Intn(size.Y) //nolint:gosec // rand.Intn is safe.
+		x := rand.Intn(size.X)
+		y := rand.Intn(size.Y)
 		if colorEqualRGBA(im.At(x, y), boundedColor) {
 			return image.Pt(x, y)
 		}
