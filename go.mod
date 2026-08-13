@@ -8,7 +8,7 @@ require (
 	github.com/pierrre/assert v0.15.4
 	github.com/pierrre/errors v0.16.1
 	github.com/pierrre/githubhook v1.0.3
-	github.com/pierrre/imageserver v0.0.0-20260401103827-97c35bd6b0bd
+	github.com/pierrre/imageserver v0.0.0-20260703161927-297fea719455
 	github.com/pierrre/imageutil v1.0.0
 )
 
