@@ -6,8 +6,8 @@ github.com/pierrre/assert v0.15.4 h1:ONvKjzv5eqMqYIeLZw9oFoR9kV6vCzpzdCNQB/mPlQo
 github.com/pierrre/assert v0.15.4/go.mod h1:VPnk0AgSPWHIuBNb21kn4tjrNJCEr1UdXXPFKxkPdnE=
 github.com/pierrre/compare v1.5.0 h1:t+QADhk3WbkMAljPAb07mpYSs5kl+N1iUEJyKntIsWY=
 github.com/pierrre/compare v1.5.0/go.mod h1:ftjRfyE24SAsG3vNwZpcqy5lw9pD+JoMDul0tfyL7TI=
-github.com/pierrre/errors v0.16.1 h1:nLYS6D1KQowTYVeKfFce7hDwcUfKYtfEEuCJCeWK2FA=
-github.com/pierrre/errors v0.16.1/go.mod h1:0nKnUob4TV/KOAe6zqQM3FLxtc5rJwQtadYUAsEVJYA=
+github.com/pierrre/errors v0.17.2 h1:DXY192EiKX0dvhvLO470X5rud/DkiWa1g3CMCieD3DY=
+github.com/pierrre/errors v0.17.2/go.mod h1:YIGcnbg8PEVbPkagdjkQL7Y78D7F0St/4USUfgEeq9Q=
 github.com/pierrre/githubhook v1.0.3 h1:8uZFOBzWZkMqPTzcfnSVAMKcSTef3/Ka5vg0l5jKb34=
 github.com/pierrre/githubhook v1.0.3/go.mod h1:Yf+7RuUIIs0k4mzTU8/4bpogbyRCg3qjDilPhJwTnB4=
 github.com/pierrre/go-libs v0.34.7 h1:EeKx7Mgw2L1MHb8WvnmzYAoVAbOziBBDKgscFuQhVxQ=
