@@ -2,8 +2,8 @@ github.com/disintegration/gift v1.2.1 h1:Y005a1X4Z7Uc+0gLpSAsKhWi4qLtsdEcMIbbdvd
 github.com/disintegration/gift v1.2.1/go.mod h1:Jh2i7f7Q2BM7Ezno3PhfezbR1xpUg9dUg3/RlKGr4HI=
 github.com/lucasb-eyer/go-colorful v1.4.1 h1:1EO+WB73+EH8EVbzlrG3KLAfEypQWVHIBqlTf+2hNss=
 github.com/lucasb-eyer/go-colorful v1.4.1/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i7ruzyGqttikkLy0=
-github.com/pierrre/assert v0.15.4 h1:ONvKjzv5eqMqYIeLZw9oFoR9kV6vCzpzdCNQB/mPlQo=
-github.com/pierrre/assert v0.15.4/go.mod h1:VPnk0AgSPWHIuBNb21kn4tjrNJCEr1UdXXPFKxkPdnE=
+github.com/pierrre/assert v0.15.5 h1:yx3E96zKdO3kQ33HG6d0PG30hVE6iLC6/bzX3T/n0bM=
+github.com/pierrre/assert v0.15.5/go.mod h1:NhjPY74CzST/Fbzp1BgsmL2QFyw5tFSi30OvDKoaph4=
 github.com/pierrre/compare v1.5.0 h1:t+QADhk3WbkMAljPAb07mpYSs5kl+N1iUEJyKntIsWY=
 github.com/pierrre/compare v1.5.0/go.mod h1:ftjRfyE24SAsG3vNwZpcqy5lw9pD+JoMDul0tfyL7TI=
 github.com/pierrre/errors v0.17.2 h1:DXY192EiKX0dvhvLO470X5rud/DkiWa1g3CMCieD3DY=
