@@ -5,7 +5,7 @@ go 1.27.0
 require (
 	github.com/disintegration/gift v1.2.1
 	github.com/lucasb-eyer/go-colorful v1.4.1
-	github.com/pierrre/assert v0.15.7
+	github.com/pierrre/assert v0.16.0
 	github.com/pierrre/errors v0.18.1
 	github.com/pierrre/githubhook v1.0.5
 	github.com/pierrre/imageserver v0.0.0-20260703161927-297fea719455
