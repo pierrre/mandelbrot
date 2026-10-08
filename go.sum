@@ -10,8 +10,8 @@ github.com/pierrre/errors v0.19.1 h1:9QZ78WZEFP8l6dgOnnSgAcHbPcmiBMCTeAZxlaAS2M8
 github.com/pierrre/errors v0.19.1/go.mod h1:ufciOLVRaFd8VgRIltrUMyyOxi8z03clkDoAClddVb8=
 github.com/pierrre/githubhook v1.0.5 h1:FhFvsdov1HJYY16/HzEqQANDP1UR0Ssd5TglyvJKNGc=
 github.com/pierrre/githubhook v1.0.5/go.mod h1:5cSrlP5YFjXQk34kJObEMK8L+e9Q1IYIz/u34+nNPkk=
-github.com/pierrre/go-libs v0.38.2 h1:vMgFDbo/k/VsCK66lyXrjAkQoc1NPr59AcnjE6VOxE4=
-github.com/pierrre/go-libs v0.38.2/go.mod h1:Ew9xuMSV33co0iFFO/MuMHui5tT6HeOCZKSmBvVZFuw=
+github.com/pierrre/go-libs v0.38.3 h1:NGyLHbax93Xkp8Y9IVzsHUkTLg9MONX9kliAWqt9oRU=
+github.com/pierrre/go-libs v0.38.3/go.mod h1:Ban4RTmOSs7Cm5NAeiLdliPin1bplcluC2NrkwcVr7o=
 github.com/pierrre/imageserver v0.0.0-20260703161927-297fea719455 h1:8+cOoc2Iq3QW5rM4mZWTSQVTpElLEjiYm8tI4BRSEU4=
 github.com/pierrre/imageserver v0.0.0-20260703161927-297fea719455/go.mod h1:B8OWjQwEIk4zOWFDxQYBCPdTCZW9SseRHQbEyp3mt/E=
 github.com/pierrre/imageutil v1.0.0 h1:/DqwfUW34DdeZ/+btQRAD1NNIlLs+rAkskJJv5+jx2Q=
