@@ -4,8 +4,8 @@ github.com/lucasb-eyer/go-colorful v1.4.1 h1:1EO+WB73+EH8EVbzlrG3KLAfEypQWVHIBql
 github.com/lucasb-eyer/go-colorful v1.4.1/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i7ruzyGqttikkLy0=
 github.com/pierrre/assert v0.16.0 h1:wEcLpcXSPLoqvDy+HzDCwPkgxkZWeCiVF2bb/p+lMjA=
 github.com/pierrre/assert v0.16.0/go.mod h1:aZP7GSl8BO1DtFPn7qkdSC+G+QQe4IOSuJCZERonpBk=
-github.com/pierrre/compare v1.6.2 h1:tzsbxsr+y91UYhSdlgU9iD61Zj4ipIZf6oQ2Xi4nI78=
-github.com/pierrre/compare v1.6.2/go.mod h1:ap/TwCW7/7CPkjqAYL2JiGykMx0LLfeQf88q72XIkoE=
+github.com/pierrre/compare v1.6.3 h1:dvMXDmvo03XS+Bn+Aj1TwauZG561hJY/cirrGah1/PA=
+github.com/pierrre/compare v1.6.3/go.mod h1:BShKczlNinRBmYNOG5oepMn33AFGBQnBfxxZt7X002k=
 github.com/pierrre/errors v0.19.1 h1:9QZ78WZEFP8l6dgOnnSgAcHbPcmiBMCTeAZxlaAS2M8=
 github.com/pierrre/errors v0.19.1/go.mod h1:ufciOLVRaFd8VgRIltrUMyyOxi8z03clkDoAClddVb8=
 github.com/pierrre/githubhook v1.0.5 h1:FhFvsdov1HJYY16/HzEqQANDP1UR0Ssd5TglyvJKNGc=
